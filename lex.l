@@ -1,12 +1,16 @@
 %{
 #include <stdlib.h>
-#include "y.tab.h"
+#include <iostream>
+#include "grammer.tab.h"
+using namespace std;
 void yyerror(char *);
 void onError(char *);
+extern int yylex();
+
 
 #if defined LEX_DEBUG || defined DEBUG
-#define MATCH printf("match at line %d: %s\n", __LINE__, yytext);
-#define RETURN(x) printf("returning %s\n", #x); return x;
+#define MATCH cout<<"match at line "<<__LINE__<<": "<<yytext<<endl;
+#define RETURN(x) cout<<"returning "<<#x<<endl; return x;
 #else
 #define MATCH
 #define RETURN(x) return x;
@@ -38,23 +42,24 @@ number [0-9]+
 (function|#) {MATCH RETURN(FUNCTION); };
 
 [-()<>=+*/{},:] { MATCH
-    // printf(yytext);
-    // printf("\n");
     return *yytext;
 }
 
-{letter}{validChar}* { MATCH
-    // printf("IDENTIFIER %s\n", yytext);
-    RETURN(IDENTIFIER);
+{letter}{validChar}* { 
+    cout<<"lex -- identifier" << yytext<<endl;
+    yylval.sValue=yytext;
+    MATCH RETURN(IDENTIFIER);
 }
 
 {number} { MATCH
-    // printf("INTEGER %s\n", yytext);
+    cout<<"lex -- INTEGER" << yytext<<endl;
+    yylval.iValue=atoi(yytext);
     RETURN(V_INTEGER);
 }
 
 {number}\.{number} { MATCH
-    // printf("FLOAT\n");
+    cout<<"lex -- Float" << yytext<<endl;
+    yylval.fValue=strtof(yytext,NULL);
     RETURN(V_FLOAT);
 }
 

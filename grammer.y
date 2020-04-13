@@ -2,12 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include "SymbolTableTree.h"
+using namespace std;
+
+SymbolTableTree sym;
+
+extern int yylex();
+extern int yyparse();
+
 #ifdef TEST // run test cases
-printf("test defined");
+cout<<"test defined"<<endl;
 #endif
 
 #ifdef DEBUG
-#define REDUCE printf("reduce at line %d\n", __LINE__);
+#define REDUCE cout<<"reduce at line "<<__LINE__<<endl;
 #else
 #define REDUCE
 #endif
@@ -16,17 +24,23 @@ int yylex(void);
 void yyerror(char *s);
 %}
 
-// %union {
-//     int iValue;                 /* integer value */
-//     char sIndex;                /* symbol table index */
-//     // nodeType *nPtr;             /* node pointer */
-// };
-// %token <iValue> INTEGER
-%token IDENTIFIER V_INTEGER V_FLOAT SEMICOLON FUNCTION
-// %token <sIndex> VARIABLE
+%union {
+    int iValue;                 /* integer value */
+    float fValue;               /* float Value */
+    char* sValue;                /* string value */
+};
+
+%token <sValue> IDENTIFIER 
+%token <iValue> V_INTEGER 
+%token <fValue> V_FLOAT 
+
+%token SEMICOLON FUNCTION
 %token PRINT // built-in functions
 %token IF SWITCH CASE WHILE FOR UNTIL DEFAULT// flow controls
 %token CONST T_INT T_FLOAT // types
+
+
+%start program
 
 %left EQQ NEQ '>' '<'
 %left LEQ GEQ
@@ -42,8 +56,8 @@ void yyerror(char *s);
 %%
 
 program:
-          program stmt                                                                 { REDUCE printf("[Success]\n"); }
-        | /* NULL */                                                                   { REDUCE printf("[epsilon prog]\n"); }
+          program stmt                                                                 { REDUCE printf("[Success]\n");sym.enter_scope("Global");}
+        | /* NULL */                                                                   { REDUCE printf("[epsilon prog]\n");sym.enter_scope("Global"); }
         ;
 
 stmt:
@@ -167,11 +181,14 @@ const_expr:
 %%
 
 void yyerror(char *s) {
-    fprintf(stdout, "%s\n", s);
+    cout<<s<<endl;
     exit(1);
 }
 
 int main(void) {
-    while(1) yyparse();
+    while(1)
+    {          
+        yyparse();
+    }
     return 0;
 }
