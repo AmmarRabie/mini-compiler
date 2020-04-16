@@ -1,5 +1,5 @@
 # i ddn't change make file to compile with c++ (because make  not working on my labtop)
-# i didn't finishing integrating symbol table with yacc if you tested now it will not be working 
+# if you wand to run see the commands.txt and put it in the make if you want
 # mini-compiler
 mini compiler for c-like language using flex and bison
 # C Compiler
