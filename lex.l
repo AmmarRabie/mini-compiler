@@ -1,11 +1,17 @@
 %{
 #include <stdlib.h>
+#include <string.h>
 #include <iostream>
-#include "grammer.tab.h"
+#include "ast.h"
+#include "SymbolTableTree.h"
+#include "y.tab.h"
 using namespace std;
 void yyerror(char *);
 void onError(char *);
 extern int yylex();
+
+
+
 
 
 #if defined LEX_DEBUG || defined DEBUG
@@ -16,28 +22,32 @@ extern int yylex();
 #define RETURN(x) return x;
 #endif
 %}
-
+%option yylineno
 letter [a-zA-Z]
 validChar [0-9a-zA-Z_]
 number [0-9]+
 
 %%
-"print" { MATCH RETURN (PRINT);}
+
+[ \t]+        ;       /* ignore whitespace */
+\n            ;
+
+"print" {yylval.iValue =PRINT; MATCH RETURN (PRINT);}
 ">=" { MATCH RETURN (GEQ);}
 "<=" { MATCH RETURN (LEQ);}
 "!=" { MATCH RETURN (NEQ);}
 "==" { MATCH RETURN (EQQ);}
-"const" { MATCH RETURN (CONST);}
-"int" { MATCH RETURN (T_INT);}
-"float" { MATCH RETURN (T_FLOAT);}
-"if" { MATCH RETURN (IF);}
-"else" { MATCH RETURN (ELSE);}
-"switch" { MATCH RETURN (SWITCH);}
-"case" { MATCH RETURN (CASE);}
-"default" { MATCH RETURN (DEFAULT);}
-"while" { MATCH RETURN (WHILE);}
-"until" { MATCH RETURN (UNTIL);}
-"for" { MATCH RETURN (FOR);}
+"const" {yylval.iValue =CONST; MATCH RETURN (CONST);}
+"int"   {yylval.iValue =T_INT; MATCH RETURN (T_INT);}
+"float" {yylval.iValue =T_FLOAT; MATCH RETURN (T_FLOAT);}
+"if" { yylval.iValue =IF;MATCH RETURN (IF);}
+"else" { yylval.iValue =ELSE; MATCH RETURN (ELSE);}
+"switch" { yylval.iValue =SWITCH; MATCH RETURN (SWITCH);}
+"case" { yylval.iValue =CASE; MATCH RETURN (CASE);}
+"default" {yylval.iValue =DEFAULT; MATCH RETURN (DEFAULT);}
+"while" { yylval.iValue =WHILE; MATCH RETURN (WHILE);}
+"until" { yylval.iValue =UNTIL; MATCH RETURN (UNTIL);}
+"for" { yylval.iValue =FOR; MATCH RETURN (FOR);}
 
 (function|#) {MATCH RETURN(FUNCTION); };
 
@@ -46,19 +56,18 @@ number [0-9]+
 }
 
 {letter}{validChar}* { 
-    cout<<"lex -- identifier" << yytext<<endl;
-    yylval.sValue=yytext;
-    MATCH RETURN(IDENTIFIER);
+        yylval.sValue =mystrdup(yytext);
+        MATCH RETURN(IDENTIFIER);
 }
 
 {number} { MATCH
-    cout<<"lex -- INTEGER" << yytext<<endl;
+    //cout<<"lex -- INTEGER" << yytext<<endl;
     yylval.iValue=atoi(yytext);
     RETURN(V_INTEGER);
 }
 
 {number}\.{number} { MATCH
-    cout<<"lex -- Float" << yytext<<endl;
+    //cout<<"lex -- Float" << yytext<<endl;
     yylval.fValue=strtof(yytext,NULL);
     RETURN(V_FLOAT);
 }
@@ -66,16 +75,12 @@ number [0-9]+
 ^[ \t\n]+$ // before this line, we match a empty lines as empty statement
 
 [;] { MATCH
-    // printf("end of statement\n");
+    //printf("end of statement\n");
     RETURN(SEMICOLON);
 }
 
 
 
-[ \t]+        ;       /* ignore whitespace */
-\n            ;
-
-.               onError("Unknown char");
 %%
 int yywrap(void) {
     printf("warping\n");
@@ -83,6 +88,18 @@ int yywrap(void) {
 }
 
 void onError(char * message){
-    printf("ERROR\n", yytext);
+    cout<<"Error"<<endl;
+    cout<<"''"<<yytext<<"''"<<endl;
     yyerror(message);
+}
+
+
+char *mystrdup( char *c)
+{
+    char *dup =(char*) malloc(strlen(c) + 1);
+
+    if (dup != NULL)
+       strcpy(dup, c);
+
+    return dup;
 }
