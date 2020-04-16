@@ -6,8 +6,10 @@ class SymanticAnalyzer{
     int * lineNumber;
     public : 
     SymanticAnalyzer(SymbolTableTree * sym,int * lineNumber);
-    nodeType * varNotDec(char* index ,nodeType* value);
-    nodeType * varReDec(char* index,nodeType* value,int type);
+    nodeType * varAss(char* index ,nodeType* value);
+    nodeType * varDec(char* index,nodeType* value,int type);
+    nodeType * varInEx(char* index); // variable used in expression
+
 
 
 

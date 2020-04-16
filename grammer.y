@@ -99,17 +99,17 @@ stmt:
                                                                                          $$ = opr(PRINT, 2, $1, NULL);}
         | IDENTIFIER '=' expr SEMICOLON                                                {  
                                                                                           REDUCE printf("parser3: Assignmet stmt\n");
-                                                                                          $$ = sem.varNotDec($1,$3);
+                                                                                          $$ = sem.varAss($1,$3);
                                                                                         }
                                                                                           
 
         | type IDENTIFIER SEMICOLON                                                    {  
                                                                                         REDUCE printf("parser5: declaration statement\n");
-                                                                                        $$=sem.varReDec($2,NULL,$1->ty.t);
+                                                                                        $$=sem.varDec($2,NULL,$1->ty.t);
                                                                                          }
         | type IDENTIFIER '=' expr SEMICOLON                                           { 
                                                                                         REDUCE printf("parser: declaration statement with init value\n");
-                                                                                        $$=sem.varReDec($2,$4,$1->ty.t);
+                                                                                        $$=sem.varDec($2,$4,$1->ty.t);
                                                                                        }
         | CONST type IDENTIFIER '=' expr SEMICOLON                                      {  
                                                                                         REDUCE printf("parser: declaration statement with init value\n"); 
@@ -214,7 +214,7 @@ expr:
           V_INTEGER                             { REDUCE printf("parser.expr: INTEGER\n");  $$=con($1); }
         | V_FLOAT                               { REDUCE printf("parser.expr: FLOAT\n");  $$=con($1);}
         | V_CHR                                 { REDUCE printf("parser.expr: CHR value \n");  $$=con($1);}
-        | IDENTIFIER                            { REDUCE printf("parser.expr: VAR\n");  $$=id($1); cout<<$1<<endl;}
+        | IDENTIFIER                            { REDUCE printf("parser.expr: VAR\n");  $$=sem.varInEx($1);}
         | '-' expr %prec UMINUS                 { REDUCE printf("parser.expr: UMIN\n"); $$=  opr(UMINUS, 1, $2); }
         | expr '+' expr                         { REDUCE printf("parser.expr: ADD\n");  $$ = opr('+', 2, $1, $3);}
         | expr '-' expr                         { REDUCE printf("parser.expr: SUB\n");  $$ = opr('-', 2, $1, $3);}

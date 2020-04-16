@@ -6,7 +6,7 @@ SymanticAnalyzer::SymanticAnalyzer(SymbolTableTree * sym,int * lineNumber)
     this->sym=sym;
     this->lineNumber=lineNumber;
 }
-nodeType * SymanticAnalyzer::varNotDec(char* index,nodeType* value)
+nodeType * SymanticAnalyzer::varAss(char* index,nodeType* value)
 {
     Entry* en = sym->find_symbol(index);
     nodeType * r;
@@ -29,7 +29,7 @@ nodeType * SymanticAnalyzer::varNotDec(char* index,nodeType* value)
 }
 
 
-nodeType * SymanticAnalyzer::varReDec(char* index,nodeType* value,int type)
+nodeType * SymanticAnalyzer::varDec(char* index,nodeType* value,int type)
 {
     Entry* en = sym->find_symbol(index);
     nodeType * r;
@@ -54,6 +54,33 @@ nodeType * SymanticAnalyzer::varReDec(char* index,nodeType* value,int type)
         // complete the anaysic
         // on the value stack i have but no operation node;
         r= opr(-1, 0); 
+    }
+    return r;
+}
+
+
+nodeType * SymanticAnalyzer::varInEx(char* index)
+{
+    Entry* en = sym->find_symbol(index);
+    nodeType * r;
+    if (en==NULL)
+    { 
+        // semantics error
+        cout <<" line :"<< *lineNumber<<" : semntic error, variable "<<index<<" not defined" <<endl;
+        r= opr(-1, 0);
+    }
+    else
+    {
+        if (en->value==NULL)
+        {
+        // semantics error
+        cout <<" line :"<< *lineNumber<<" : semntic error, variable "<<index<<" not initilized " <<endl;
+        r= opr(-1, 0);
+        }
+        else
+        {
+          r = id(index); 
+        }
     }
     return r;
 }
