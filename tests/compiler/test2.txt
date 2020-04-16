@@ -1,0 +1,45 @@
+[epsilon prog]
+parser2: type int
+parser.expr: INTEGER
+parser: declaration statement with init value
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = z : value = 0x800098430 : type = 272
+##################
+[Success]
+parser2: type int
+line : 2 : syntax error, unexpected integer, expecting identifier
+[Success]
+parser2: type int
+parser.expr: INTEGER
+parser: declaration statement with init value
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = y : value = 0x8000985c0 : type = 272
+index = z : value = 0x800098430 : type = 272
+##################
+[Success]
+parser2: type int
+parser.expr: INTEGER
+parser: declaration statement with init value
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = h : value = 0x8000986f0 : type = 272
+index = z : value = 0x800098430 : type = 272
+index = y : value = 0x8000985c0 : type = 272
+##################
+[Success]
+parser.expr: VAR
+y
+parser.expr: VAR
+h
+parser.expr: ADD
+parser3: Assignmet stmt
+[Success]
+warping
