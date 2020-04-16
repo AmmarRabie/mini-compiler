@@ -14,6 +14,7 @@ SymbolTableTree* SymbolTableTree::enter_scope(string index)
     this->childrens.push_back(nScope);
 
     cout<<"Symbol Table created with index '"<<nScope->table.get_table_index()<<"'"<<endl;
+
     return nScope;
     
 }
@@ -31,9 +32,9 @@ Entry*  SymbolTableTree::find_symbol(string index)
   }
   return NULL;
 }
-void SymbolTableTree::add_symbol(string index,float numeric_value,int type)
+void SymbolTableTree::add_symbol(string index,nodeType* value,int type,int cons_flag)
 {
-    this->table.add_symbol(index,numeric_value,type);
+    this->table.add_symbol(index,value,type,cons_flag);
 }
 bool SymbolTableTree::check_scope(string index)
 {
@@ -68,6 +69,7 @@ string SymbolTableTree::get_table_index()
 
 void SymbolTableTree::printTable()
 {
+    cout<<"##################"<<endl;
     if (this->parent !=NULL)
     {
         cout << "parent scope is "<<this->parent->get_table_index()<<endl;
@@ -82,6 +84,7 @@ void SymbolTableTree::printTable()
     }
     cout<<"Table :"<<endl;
     this->table.printTable();
+    cout<<"##################"<<endl;
 }
 
 

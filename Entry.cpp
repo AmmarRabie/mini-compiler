@@ -1,6 +1,7 @@
 #include "Entry.h"
-Entry::Entry(float numeric_value,int type)
+Entry::Entry(nodeType* value,int type,int cons_flag)
 {
-    this->numeric_value=numeric_value;
+    this->value=value;
     this->type=type;
+    this->cons_flag=cons_flag;
 }

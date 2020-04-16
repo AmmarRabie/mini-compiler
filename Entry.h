@@ -1,8 +1,10 @@
 #include <iostream>
+#include "ast.h"
+using namespace std;
 class Entry{
     public:
-    float numeric_value;
+    nodeType* value;
     int type;
-    Entry(float numeric_value,int type);
-
+    int cons_flag;
+    Entry(nodeType* value,int type,int cons_flag=0);
 };

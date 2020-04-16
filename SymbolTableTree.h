@@ -2,7 +2,8 @@
 
 using namespace std;
 
-
+#ifndef SYMBOL_TABLE_TREE
+#define SYMBOL_TABLE_TREE
 class SymbolTableTree
 {
  private:
@@ -15,7 +16,7 @@ class SymbolTableTree
  SymbolTableTree(SymbolTableTree * parent,string index);
  SymbolTableTree* enter_scope(string scopeindex);
  Entry* find_symbol(string index);
- void add_symbol(string index,float numeric_value,int type);
+ void add_symbol(string index,nodeType * value,int type,int cons_flag=0);
  bool check_scope(string index);
  SymbolTableTree* exit_scope();
  void printTable();
@@ -23,3 +24,7 @@ class SymbolTableTree
 
 
 };
+
+
+
+#endif

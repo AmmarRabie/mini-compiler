@@ -20,9 +20,9 @@ Entry* SymbolTable::find_symbol(string index) {
   
 }
 
-bool SymbolTable::add_symbol(string index,float numeric_value,int type) {
+bool SymbolTable::add_symbol(string index,nodeType* value,int type,int cons_flag) {
 
-  Entry*  en=new Entry(numeric_value,type);
+  Entry*  en=new Entry(value,type,cons_flag);
   this->table[index]=en;
   return true;
 }
@@ -42,7 +42,7 @@ SymbolTable::~SymbolTable()
 void SymbolTable::printTable()
 {
      for (auto& it: this->table) {
-      cout<< "index = "<<it.first<<" with value = "<<it.second->numeric_value<<it.second->type<<endl;
+      cout<< "index = "<<it.first<<" : value = "<<it.second->value<<" : type = "<<it.second->type<<endl;
   } 
 }
 

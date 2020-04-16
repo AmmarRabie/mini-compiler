@@ -1,7 +1,7 @@
 #include <vector>
-#include <string>
 #include <unordered_map> 
 #include "Entry.h"
+
 
 using namespace std;
 
@@ -16,7 +16,7 @@ class SymbolTable
     string get_table_index();
     SymbolTable(string index);
     Entry* find_symbol(string index);
-    bool add_symbol(string index,float numeric_value,int type);
+    bool add_symbol(string index,nodeType* value,int type,int cons_flag=0);
     void printTable();
     ~SymbolTable();
 };
