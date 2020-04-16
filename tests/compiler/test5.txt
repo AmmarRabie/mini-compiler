@@ -1,0 +1,56 @@
+[epsilon prog]
+parser: type char
+parser.expr: CHR value 
+parser: declaration statement with init value
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = x : value = 0x8000984b0 : type = 275
+##################
+[Success]
+parser: type int
+parser5: declaration statement
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = y : value = 0 : type = 273
+index = x : value = 0x8000984b0 : type = 275
+##################
+[Success]
+parser.expr: INTEGER
+parser3: Assignmet stmt
+ line :5 : semntic error, variable z not defined
+[Success]
+parser.expr: CHR value 
+parser3: Assignmet stmt
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = y : value = 0 : type = 273
+index = x : value = 0x800098740 : type = 275
+##################
+[Success]
+parser: type int
+parser.expr: INTEGER
+parser: declaration statement with init value
+ line :9 : semntic error, variable y Redeclared
+[Success]
+parser.expr: VAR
+x
+line : 13 : syntax error, unexpected character value, expecting integer or float or '-' or '('
+[Success]
+parser.expr: VAR
+break
+parserW2: expression stmt
+[Success]
+line : 16 : syntax error, unexpected case statement
+[Success]
+parser.expr: VAR
+break
+parserW2: expression stmt
+[Success]
+line : 19 : syntax error, unexpected defualt statement
+warping

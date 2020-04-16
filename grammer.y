@@ -6,9 +6,10 @@
 
 #include <iostream>
 #include "ast.h"
-#include "SymbolTableTree.h"
+#include "SymanticAnalyzer.h"
 using namespace std;
 string get_string(char * s);
+
 
 
 // begining the symbol Table
@@ -18,7 +19,9 @@ extern int yyparse();
 extern FILE *yyin;
 extern int yylineno, yychar;
 
-extern SymbolTableTree * sym=new SymbolTableTree(NULL,"Global");
+SymbolTableTree * sym=new SymbolTableTree(NULL,"Global");
+
+SymanticAnalyzer sem(sym,&yylineno);
 
 #ifdef TEST // run test cases
 cout<<"test defined"<<endl;
@@ -38,9 +41,10 @@ void yyerror(char *s);
 
 %union {
     int iValue;                 /* integer value */
-    float fValue;                 /* integer value */
+    float fValue;                 /* float value */
     nodeType* nPtr;
     char* sValue;
+    char cValue;       /* character value*/
 };
 
 %error-verbose
@@ -48,6 +52,7 @@ void yyerror(char *s);
 %token  <sValue> IDENTIFIER "identifier"
 %token  <iValue> V_INTEGER "integer"
 %token  <fValue> V_FLOAT "float"
+%token  <cValue> V_CHR "character value"
 
 
 %token SEMICOLON ";" FUNCTION "function"
@@ -55,7 +60,7 @@ void yyerror(char *s);
 %token <iValue> IF "if statement" SWITCH "switch statement" CASE "case statement" WHILE "while statement "
 %token <iValue> FOR " for statement" UNTIL "until statement" DEFAULT "defualt statement"// flow controls
 %token <iValue> CONST "const keyword" 
-%token <iValue> T_INT "integer" T_FLOAT "float" // types
+%token <iValue> T_INT "integer" T_FLOAT "float"  T_CHR "char" // types
 
 
 %type <nPtr> stmt expr stmt_list _stmt_list type for_init_stmt for_cond_stmt for_inc_stmt 
@@ -89,17 +94,22 @@ program:
 stmt:
           SEMICOLON                                                                    {  REDUCE printf("parser1:empty statement\n");$$ = opr(';', 2, NULL, NULL); }
         | expr SEMICOLON                                                               {  REDUCE printf("parserW2: expression stmt\n");$$ = $1; }
-        | PRINT expr SEMICOLON                                                         {  REDUCE printf("parser4: PRINT expr stmt';'\n"); $$ = opr(PRINT, 2, $1, NULL);}
-        | IDENTIFIER '=' expr SEMICOLON                                                {  REDUCE printf("parser3: Assignmet stmt\n");$$ = opr('=', 2, id($1), $3); }
-        | type IDENTIFIER SEMICOLON                                                    {  REDUCE printf("parser5: declaration statement\n");
-                                                                                        sym->add_symbol($2,NULL,$1->ty.t);
-                                                                                        sym->printTable();
-                                                                                         $$ = opr($1->ty.t, 1, id($2));}
+        | PRINT expr SEMICOLON                                                         { 
+                                                                                         REDUCE printf("parser4: PRINT expr stmt';'\n");
+                                                                                         $$ = opr(PRINT, 2, $1, NULL);}
+        | IDENTIFIER '=' expr SEMICOLON                                                {  
+                                                                                          REDUCE printf("parser3: Assignmet stmt\n");
+                                                                                          $$ = sem.varNotDec($1,$3);
+                                                                                        }
+                                                                                          
+
+        | type IDENTIFIER SEMICOLON                                                    {  
+                                                                                        REDUCE printf("parser5: declaration statement\n");
+                                                                                        $$=sem.varReDec($2,NULL,$1->ty.t);
+                                                                                         }
         | type IDENTIFIER '=' expr SEMICOLON                                           { 
                                                                                         REDUCE printf("parser: declaration statement with init value\n");
-                                                                                        sym->add_symbol($2,$4,$1->ty.t);
-                                                                                        sym->printTable();
-                                                                                        $$ = opr($1->ty.t, 2, id($2),$4);
+                                                                                        $$=sem.varReDec($2,$4,$1->ty.t);
                                                                                        }
         | CONST type IDENTIFIER '=' expr SEMICOLON                                      {  
                                                                                         REDUCE printf("parser: declaration statement with init value\n"); 
@@ -185,8 +195,9 @@ args_list:
 
         
 type:
-    T_INT { printf("parser2: type int\n");  $$=ty($1);}
-    | T_FLOAT {printf("parser2: type float\n");$$=ty($1); }
+    T_INT { printf("parser: type int\n");  $$=ty($1);}
+    | T_FLOAT {printf("parser: type float\n");$$=ty($1); }
+    | T_CHR {printf("parser: type char\n");$$=ty($1); }
     ;
   
 
@@ -202,6 +213,7 @@ _stmt_list:
 expr:
           V_INTEGER                             { REDUCE printf("parser.expr: INTEGER\n");  $$=con($1); }
         | V_FLOAT                               { REDUCE printf("parser.expr: FLOAT\n");  $$=con($1);}
+        | V_CHR                                 { REDUCE printf("parser.expr: CHR value \n");  $$=con($1);}
         | IDENTIFIER                            { REDUCE printf("parser.expr: VAR\n");  $$=id($1); cout<<$1<<endl;}
         | '-' expr %prec UMINUS                 { REDUCE printf("parser.expr: UMIN\n"); $$=  opr(UMINUS, 1, $2); }
         | expr '+' expr                         { REDUCE printf("parser.expr: ADD\n");  $$ = opr('+', 2, $1, $3);}

@@ -12,13 +12,13 @@ using namespace std;
                 //constant  //identifier // operation //TypeDefinition
 typedef enum { typeCon, typeId, typeOpr ,typeType} nodeEnum;
 /* constants */
-typedef struct {
+ struct conNodeType {
  double value; /* value of constant */
-} conNodeType;
+} ;
 /* identifiers */
-typedef struct {
+ struct idNodeType {
  char * i; 
-} idNodeType;
+} ;
 
 /* type */
 typedef struct {

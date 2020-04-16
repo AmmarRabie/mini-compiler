@@ -1,0 +1,43 @@
+[epsilon prog]
+parser: type char
+
+x
+parser.expr: CHR value 
+parser: declaration statement with init value
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = x : value = 0x8000984b0 : type = 275
+##################
+[Success]
+parser: type int
+parser5: declaration statement
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = y : value = 0 : type = 273
+index = x : value = 0x8000984b0 : type = 275
+##################
+[Success]
+parser.expr: VAR
+x
+
+x
+line : 6 : syntax error, unexpected character value, expecting integer or float or '-' or '('
+[Success]
+parser.expr: VAR
+break
+parserW2: expression stmt
+[Success]
+line : 9 : syntax error, unexpected case statement
+
+z
+[Success]
+parser.expr: VAR
+break
+parserW2: expression stmt
+[Success]
+line : 12 : syntax error, unexpected defualt statement
+warping

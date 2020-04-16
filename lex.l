@@ -26,11 +26,14 @@ extern int yylex();
 letter [a-zA-Z]
 validChar [0-9a-zA-Z_]
 number [0-9]+
+cChar  '.'
 
 %%
 
 [ \t]+        ;       /* ignore whitespace */
 \n            ;
+
+
 
 "print" {yylval.iValue =PRINT; MATCH RETURN (PRINT);}
 ">=" { MATCH RETURN (GEQ);}
@@ -39,6 +42,7 @@ number [0-9]+
 "==" { MATCH RETURN (EQQ);}
 "const" {yylval.iValue =CONST; MATCH RETURN (CONST);}
 "int"   {yylval.iValue =T_INT; MATCH RETURN (T_INT);}
+"char"  {yylval.iValue =T_CHR; MATCH RETURN (T_CHR);}
 "float" {yylval.iValue =T_FLOAT; MATCH RETURN (T_FLOAT);}
 "if" { yylval.iValue =IF;MATCH RETURN (IF);}
 "else" { yylval.iValue =ELSE; MATCH RETURN (ELSE);}
@@ -53,6 +57,12 @@ number [0-9]+
 
 [-()<>=+*/{},:] { MATCH
     return *yytext;
+}
+
+{cChar} {
+     yylval.cValue =yytext[1]; 
+     //cout<<endl<<yylval.cValue<<endl;
+    MATCH RETURN (V_CHR);
 }
 
 {letter}{validChar}* { 
