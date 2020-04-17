@@ -6,7 +6,7 @@ parser: declaration statement with init value
 current scope is Global
 children scopes  are :
 Table :
-index = n : value = 0x8000984b0 : type = 275
+index = x : value = 0x8000984b0 : type = 275
 ##################
 [Success]
 parser: type int
@@ -16,7 +16,7 @@ current scope is Global
 children scopes  are :
 Table :
 index = y : value = 0 : type = 273
-index = n : value = 0x8000984b0 : type = 275
+index = x : value = 0x8000984b0 : type = 275
 ##################
 [Success]
 parser.expr: INTEGER
@@ -25,7 +25,13 @@ parser3: Assignmet stmt
 [Success]
 parser.expr: CHR value 
 parser3: Assignmet stmt
- line :7 : semntic error, variable x not defined
+##################
+current scope is Global
+children scopes  are :
+Table :
+index = y : value = 0 : type = 273
+index = x : value = 0x800098740 : type = 275
+##################
 [Success]
 parser: type int
 parser.expr: INTEGER
@@ -33,17 +39,16 @@ parser: declaration statement with init value
  line :9 : semntic error, variable y Redeclared
 [Success]
 parser.expr: VAR
-x
 line : 13 : syntax error, unexpected character value, expecting integer or float or '-' or '('
 [Success]
 parser.expr: VAR
-break
+ line :15 : semntic error, variable break not defined
 parserW2: expression stmt
 [Success]
 line : 16 : syntax error, unexpected case statement
 [Success]
 parser.expr: VAR
-break
+ line :18 : semntic error, variable break not defined
 parserW2: expression stmt
 [Success]
 line : 19 : syntax error, unexpected defualt statement

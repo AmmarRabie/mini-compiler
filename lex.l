@@ -36,10 +36,10 @@ cChar  '.'
 
 
 "print" {yylval.iValue =PRINT; MATCH RETURN (PRINT);}
-">=" { MATCH RETURN (GEQ);}
-"<=" { MATCH RETURN (LEQ);}
-"!=" { MATCH RETURN (NEQ);}
-"==" { MATCH RETURN (EQQ);}
+">=" { yylval.iValue =GEQ; MATCH RETURN (GEQ);}
+"<=" { yylval.iValue =LEQ; MATCH RETURN (LEQ);}
+"!=" { yylval.iValue =NEQ; MATCH RETURN (NEQ);}
+"==" { yylval.iValue =EQQ; MATCH RETURN (EQQ);}
 "const" {yylval.iValue =CONST; MATCH RETURN (CONST);}
 "int"   {yylval.iValue =T_INT; MATCH RETURN (T_INT);}
 "char"  {yylval.iValue =T_CHR; MATCH RETURN (T_CHR);}

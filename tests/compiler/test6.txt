@@ -9,7 +9,9 @@ Table :
 index = x : value = 0x8000984b0 : type = 275
 ##################
 [Success]
-parser: type float
+
+
+parser: type float
 parser5: declaration statement
 ##################
 current scope is Global
@@ -19,7 +21,9 @@ index = y : value = 0 : type = 274
 index = x : value = 0x8000984b0 : type = 275
 ##################
 [Success]
-parser.expr: VAR
+
+
+parser.expr: VAR
  line :5 : semntic error, variable y not initilized 
 parser.expr: INTEGER
 parser.expr: MUL
