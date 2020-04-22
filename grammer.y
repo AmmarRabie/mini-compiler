@@ -53,17 +53,19 @@ void yyerror(char *s);
 %token  <iValue> V_INTEGER "integer"
 %token  <fValue> V_FLOAT "float"
 %token  <cValue> V_CHR "character value"
-
+%token <iValue> BREAK "break"
 
 %token SEMICOLON ";" FUNCTION "function"
 %token <iValue> PRINT "print built in function" // built-in functions
 %token <iValue> IF "if statement" SWITCH "switch statement" CASE "case statement" WHILE "while statement "
-%token <iValue> FOR " for statement" UNTIL "until statement" DEFAULT "defualt statement"// flow controls
+%token <iValue> FOR " for statement"  DEFAULT "defualt statement"// flow controls
 %token <iValue> CONST "const keyword" 
 %token <iValue> T_INT "integer" T_FLOAT "float"  T_CHR "char" // types
 
 
-%type <nPtr> stmt expr stmt_list _stmt_list type for_init_stmt for_cond_stmt for_inc_stmt 
+%token <sValue>  UNMATCHED "unmatched"
+%token <sValue> INVALID_IDENTIFIER "invalid identifier"
+%type <nPtr>    _stmt SWITCH_STATEMENT  FUNCTION_CALL_STATEMENT ITERATION_STATEMENT SELECTION_STATEMENT COMPUND_STATEMNET EXPRESSION_STATEMENT ASSIGNMENT_STATEMENT DECLARATION_STATEMENT PRINT_STATEMENT VARIABLE_EXPRESSION IF_STATEMENT FOR_LOOP_STATEMENT    type for_init_stmt for_cond_stmt for_inc_stmt WHILE_LOOP_STATEMENT  
 
 
 
@@ -87,94 +89,197 @@ void yyerror(char *s);
 %%
 
 program:
-          program stmt                                                                 { REDUCE printf("[Success]\n"); }
-        | /* NULL */                                                                   { REDUCE printf("[epsilon prog]\n");}
-		;
+                        program _stmt                                                          {REDUCE printf("[Success]\n");}
 
-stmt:
-          SEMICOLON                                                                    {  REDUCE printf("parser1:empty statement\n");$$ = opr(';', 2, NULL, NULL); }
-        | expr SEMICOLON                                                               {  REDUCE printf("parserW2: expression stmt\n");$$ = $1; }
-        | PRINT expr SEMICOLON                                                         { 
-                                                                                         REDUCE printf("parser4: PRINT expr stmt';'\n");
-                                                                                         $$ = opr(PRINT, 2, $1, NULL);}
-        | IDENTIFIER '=' expr SEMICOLON                                                {  
-                                                                                          REDUCE printf("parser3: Assignmet stmt\n");
-                                                                                          $$ = sem.varAss($1,$3);
+                        | /* NULL */                                                          { REDUCE printf("[epsilon prog]\n");}
+                                ;
+
+
+_stmt:                                                                               
+                        COMPUND_STATEMNET                                                       {REDUCE printf("Matched COMPUND_STATEMNET \n");} 
+                        |EXPRESSION_STATEMENT SEMICOLON         
+                        |EXPRESSION_STATEMENT                                              {REDUCE  printf("[Line Number: %d] SEMICOLON Misssing \n",yylineno);}
+                        |SELECTION_STATEMENT 
+                        |ITERATION_STATEMENT 
+                        |UNMATCHED SEMICOLON                                                  { REDUCE yyerrok; yyclearin; printf("[Grammer] unmatched token \n") ;}
+                        |error SEMICOLON                                                      { REDUCE yyerrok; yyclearin; }
+        ;
+
+COMPUND_STATEMNET:
+                        '{' 
+                        
+                        { 
+                                REDUCE printf("enter block \n"); 
+                                sym=sym->enter_scope("New Scope");
+                                sym->printTable();
+                        }
+                                _stmt 
+                        { 
+                                REDUCE printf(" exit block \n"); 
+                                sym=sym->exit_scope();
+                                sym->printTable();
+                        }
+                        '}'
+                        { REDUCE printf("stmt list (block structure)\n");}
+                        ;
+
+
+
+
+EXPRESSION_STATEMENT:
+
+                        /* NULL */                                                             {  REDUCE printf("parser1:empty statement\n");$$ = opr(';', 2, NULL, NULL); }
+                        |ASSIGNMENT_STATEMENT
+                        |FUNCTION_CALL_STATEMENT
+                        |DECLARATION_STATEMENT
+                        |PRINT_STATEMENT
+                        |VARIABLE_EXPRESSION                                                  {  REDUCE printf("parserW2: expression stmt\n");$$ = $1; }
+                        ;
+
+SELECTION_STATEMENT:
+                        IF_STATEMENT
+                        |SWITCH_STATEMENT
+                        ;
+ITERATION_STATEMENT:
+                        FOR_LOOP_STATEMENT
+                        |WHILE_LOOP_STATEMENT
+                        ;
+
+ASSIGNMENT_STATEMENT:
+                        IDENTIFIER '=' VARIABLE_EXPRESSION                                   {  
+                                                                                                REDUCE printf("parser3: Assignmet stmt\n");
+                                                                                                $$ = sem.varAss($1,$3);
+                                                                                              }
+                        ;
+
+FUNCTION_CALL_STATEMENT:
+                        '('args_list ')'                                       { REDUCE printf("function prototype statement\n"); }
+                        ;
+DECLARATION_STATEMENT:
+                        type IDENTIFIER                                                 {  
+                                                                                                REDUCE printf("parser5: declaration statement\n");
+                                                                                                $$=sem.varDec($2,NULL,$1->ty.t);
                                                                                         }
-                                                                                          
+                        |type IDENTIFIER '=' VARIABLE_EXPRESSION                        { 
+                                                                                                REDUCE printf("parser: declaration statement with init value\n");
+                                                                                                $$=sem.varDec($2,$4,$1->ty.t);
+                                                                                        }
+                        |CONST type IDENTIFIER '=' VARIABLE_EXPRESSION                  {  
+                                                                                                REDUCE printf("parser: declaration statement with init value\n"); 
+                                                                                                sym->add_symbol($3,$5,$2->ty.t,$1);
+                                                                                                sym->printTable();
+                                                                                                $$ = opr($2->ty.t, 3,$1,id($3),$5);
+                                                                                        }
+                        | type IDENTIFIER '('args_list')'                               { REDUCE printf("function prototype statement\n"); }
+                        | type IDENTIFIER '('args_list')' '{'_stmt'}'                   { REDUCE printf("function definition stmt\n"); }        
+                        
+                        |INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                           {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
 
-        | type IDENTIFIER SEMICOLON                                                    {  
-                                                                                        REDUCE printf("parser5: declaration statement\n");
-                                                                                        $$=sem.varDec($2,NULL,$1->ty.t);
-                                                                                         }
-        | type IDENTIFIER '=' expr SEMICOLON                                           { 
-                                                                                        REDUCE printf("parser: declaration statement with init value\n");
-                                                                                        $$=sem.varDec($2,$4,$1->ty.t);
-                                                                                       }
-        | CONST type IDENTIFIER '=' expr SEMICOLON                                      {  
-                                                                                        REDUCE printf("parser: declaration statement with init value\n"); 
-                                                                                        sym->add_symbol($3,$5,$2->ty.t,$1);
-                                                                                        sym->printTable();
-                                                                                        $$ = opr($2->ty.t, 3,$1,id($3),$5);}
-        /* functions */
-        | type IDENTIFIER '('args_list')' SEMICOLON                                    { REDUCE printf("function prototype statement\n"); }
-        | type IDENTIFIER '('args_list')' '{'stmt_list'}'                              { REDUCE printf("function definition stmt\n"); }
-        /* flow controls */
-        | WHILE '(' expr ')' stmt                                                      { REDUCE printf("while stmt\n");$$ = opr(WHILE, 2, $3,$5);  }
-        | FOR'('for_init_stmt SEMICOLON for_cond_stmt SEMICOLON for_inc_stmt')'stmt    { REDUCE printf("for stmt\n"); $$ = opr(FOR,4,$3,$5,$7,$9);}
-        | IF '(' expr ')' stmt %prec IFX                                               { REDUCE $$ = opr(IF,2,$3,$5);}
-        | IF '(' expr ')' stmt ELSE stmt                                               { REDUCE printf("if else stmt\n");$$ = opr(IF,3,$3,$5,$7); }
-        | SWITCH'('expr')' switch_cases                                                { REDUCE printf("switch cases\n"); }
-        /* recursions and others */
-        | '{'  { 
-                REDUCE printf("enter block \n"); 
-                sym=sym->enter_scope("New Scope");
-                sym->printTable();}
-            stmt_list 
-            { 
-                REDUCE printf(" exit block \n"); 
-                sym=sym->exit_scope();
-                sym->printTable();}
-            '}'                                                            
-            { REDUCE printf("stmt list (block structure)\n");}
-	|  error SEMICOLON                                                             { REDUCE yyerrok; yyclearin; }
-	;
+        
+                        |type INVALID_IDENTIFIER                                               {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
+        
+                        |type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                      {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
 
-switch_cases:
-        _switch_cases DEFAULT ':' stmt
-        | _switch_cases
-        | SEMICOLON
-        | '{' _switch_cases '}'
+        
+        
+                        |CONST type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                            {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
+        
+                        
+                        
+                        ;
+PRINT_STATEMENT:
+                        PRINT '(' VARIABLE_EXPRESSION ')'                                         { 
+                                                                                                REDUCE printf("parser4: PRINT expr stmt';'\n");
+                                                                                                $$ = opr(PRINT, 2, $1, NULL);
+                                                                                        }
+                        ;
+
+VARIABLE_EXPRESSION:
+                        V_INTEGER                             { REDUCE printf("parser.VARIABLE_EXPRESSION: INTEGER\n");  $$=con($1); }
+                        | V_FLOAT                               { REDUCE printf("parser.VARIABLE_EXPRESSION: FLOAT\n");  $$=con($1);}
+                        | V_CHR                                 { REDUCE printf("parser.VARIABLE_EXPRESSION: CHR value \n");  $$=con($1);}
+                        | IDENTIFIER                            { REDUCE printf("parser.VARIABLE_EXPRESSION: VAR\n");  $$=sem.varInEx($1);}
+                        | '-' VARIABLE_EXPRESSION %prec UMINUS                 { REDUCE printf("parser.VARIABLE_EXPRESSION: UMIN\n"); $$=  opr(UMINUS, 1, $2); }
+                        | VARIABLE_EXPRESSION '+' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: ADD\n");  $$ = opr('+', 2, $1, $3);}
+                        | VARIABLE_EXPRESSION '-' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: SUB\n");  $$ = opr('-', 2, $1, $3);}
+                        | VARIABLE_EXPRESSION '*' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: MUL\n");  $$ = opr('*', 2, $1, $3);}
+                        | VARIABLE_EXPRESSION '/' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: DIV\n");  $$ = opr('/', 2, $1, $3);}
+                        | VARIABLE_EXPRESSION '<' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: <\n");    $$ = opr('<', 2, $1, $3);}
+                        | VARIABLE_EXPRESSION '>' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: >\n");    $$ = opr('>', 2, $1, $3);}
+                        | VARIABLE_EXPRESSION LEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: LE\n");   $$ = opr(LEQ, 2, $1, $3);}
+                        | VARIABLE_EXPRESSION GEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: GEQ\n");  $$ = opr(GEQ, 2, $1, $3);}
+                        | VARIABLE_EXPRESSION NEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: NE\n");   $$ = opr(NEQ, 2, $1, $3);}
+                        | VARIABLE_EXPRESSION EQQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: EQ\n");   $$ = opr(EQQ, 2, $1, $3);}
+                        | '(' VARIABLE_EXPRESSION ')'                          { REDUCE printf("parser.VARIABLE_EXPRESSION: '(' VARIABLE_EXPRESSION ')'\n");  $$ = $2; }
+                        ;
+
+
+CONSTANT_EXPRESSION:
+                        V_INTEGER                                     { REDUCE printf("parser.CONSTANT_EXPRESSION: INTEGER\n"); }
+                        |IDENTIFIER                                    {REDUCE printf("parser.CONSTANT_EXPRESSION: IDENTIFIER\n");}
+                        | V_FLOAT                                     { REDUCE printf("parser.CONSTANT_EXPRESSION: FLOAT\n"); }
+                        | '-' CONSTANT_EXPRESSION %prec UMINUS                 { REDUCE printf("parser.CONSTANT_EXPRESSION: UMIN\n"); }
+                        | CONSTANT_EXPRESSION '+' CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: ADD\n"); }
+                        | CONSTANT_EXPRESSION '-' CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: SUB\n"); }
+                        | CONSTANT_EXPRESSION '*' CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: MUL\n"); }
+                        | CONSTANT_EXPRESSION '/' CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: DIV\n"); }
+                        | CONSTANT_EXPRESSION '<' CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: <\n"); }
+                        | CONSTANT_EXPRESSION '>' CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: >\n"); }
+                        | CONSTANT_EXPRESSION LEQ CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: LE\n"); }
+                        | CONSTANT_EXPRESSION GEQ CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: GEQ\n"); }
+                        | CONSTANT_EXPRESSION NEQ CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: NE\n"); }
+                        | CONSTANT_EXPRESSION EQQ CONSTANT_EXPRESSION                   { REDUCE printf("parser.CONSTANT_EXPRESSION: EQ\n"); }
+                        | '(' CONSTANT_EXPRESSION ')'                          { REDUCE printf("parser.CONSTANT_EXPRESSION: '(' CONSTANT_EXPRESSION ')'\n"); }
+                        ;
+
+
+
+IF_STATEMENT:
+         IF '(' VARIABLE_EXPRESSION ')' _stmt %prec IFX                                                { REDUCE printf("Matched IF condition"); REDUCE $$ = opr(IF,2,$3,$5);}
+        | IF '(' VARIABLE_EXPRESSION ')' _stmt ELSE _stmt                                                { REDUCE printf("if else stmt\n");$$ = opr(IF,3,$3,$5,$7); }
+        | IF '(' UNMATCHED ')' _stmt %prec IFX                                           {REDUCE yyerrok; yyclearin; printf("[Line: %d]The IF condition must contain boolean expression ",yylineno);}
+        | IF '(' UNMATCHED ')' _stmt ELSE _stmt                                           {REDUCE yyerrok; yyclearin; printf("[Line: %d]The IF condition must contain boolean expression ",yylineno);}
+
+SWITCH_STATEMENT:
+                        SWITCH '(' CONSTANT_EXPRESSION ')'  SWITCH_CASES                               { REDUCE printf("switch cases\n"); }
+                        ;
+SWITCH_CASES:
+         '{'  _SWITCH_CASES  '}'
+         |/*NULL*/
+        ;
+_SWITCH_CASES:
+        _SWITCH_CASES  DEFAULT ':' _stmt
+        |_SWITCH_CASES CASE CONSTANT_EXPRESSION ':' _stmt
+        | _SWITCH_CASES BREAK SEMICOLON 
+        |
         ;
 
-_switch_cases:
-        cases_list stmt
-        | switch_cases cases_list stmt
+FOR_LOOP_STATEMENT:
+        FOR'('for_init_stmt SEMICOLON for_cond_stmt SEMICOLON for_inc_stmt')'_stmt     { REDUCE printf("for stmt\n"); $$ = opr(FOR,4,$3,$5,$7,$9);}
         ;
-
-cases_list: CASE const_expr ':'
-        | cases_list CASE const_expr ':' 
-        ;
-
-for_init_stmt: 
-        IDENTIFIER '=' expr                                                            { REDUCE;
+for_init_stmt:
+        IDENTIFIER '=' VARIABLE_EXPRESSION                                                             { REDUCE;
                                                                                          $$ = opr('=', 2, $1, $3); }
-        | type IDENTIFIER '=' expr                                                     { REDUCE;
+        | type IDENTIFIER '=' VARIABLE_EXPRESSION                                                     { REDUCE;
                                                                                         $$ = opr($1->ty.t, 2, id($2),$4); }
-        | CONST type IDENTIFIER '=' expr                                               { REDUCE 
+        | CONST type IDENTIFIER '=' VARIABLE_EXPRESSION                                               { REDUCE 
                                                                                         $$ = opr($2->ty.t, 3,$1,id($3),$5);}
         | /* epsiolon */                                                               { REDUCE
                                                                                         $$ = opr(-1, 0); }
         ;
 for_cond_stmt: 
-        expr                                                                           { REDUCE; $$=$1; }
+        VARIABLE_EXPRESSION                                                                           { REDUCE; $$=$1; }
         | /*epsiolon*/                                                                 { REDUCE; $$ = opr(-1, 0);}
         ;
 for_inc_stmt: 
-        IDENTIFIER '=' expr                                                            { REDUCE;$$ = opr('=',2,$1,$3); }
+        IDENTIFIER '=' VARIABLE_EXPRESSION                                                            { REDUCE;$$ = opr('=',2,$1,$3); }
         | /*epsiolon*/                                                                 { REDUCE;$$ = opr(-1, 0); }
         ;
 
+
+
+WHILE_LOOP_STATEMENT:
+        WHILE '(' VARIABLE_EXPRESSION ')' _stmt                                                       { REDUCE printf("while stmt\n");$$ = opr(WHILE, 2, $3,$5);  }
 
 var_declaration:
         type IDENTIFIER                                                 { REDUCE printf("parser.declaration: type IDENTIFIER\n"); }
@@ -193,58 +298,25 @@ args_list:
         ;
 
 
-        
+
 type:
     T_INT { printf("parser: type int\n");  $$=ty($1);}
     | T_FLOAT {printf("parser: type float\n");$$=ty($1); }
     | T_CHR {printf("parser: type char\n");$$=ty($1); }
     ;
-  
 
+
+
+/*
 stmt_list:
-          _stmt_list                  { $$ = $1; }
+          _stmt_list                  { REDUCE printf("Trying to reduce statment list\n"); $$ = $1; }
         |        { $$ = opr(-1, 0); }
         ;
 _stmt_list:
-          stmt                  { $$ = $1; }
-        | stmt _stmt_list        { $$ = opr(';', 2, $1, $2); }
+          stmt                  {REDUCE printf("Trying to match a statement"); $$ = $1; }
+        | stmt  _stmt_list        { $$ = opr(';', 2, $1, $2); }
         ;
-
-expr:
-          V_INTEGER                             { REDUCE printf("parser.expr: INTEGER\n");  $$=con($1); }
-        | V_FLOAT                               { REDUCE printf("parser.expr: FLOAT\n");  $$=con($1);}
-        | V_CHR                                 { REDUCE printf("parser.expr: CHR value \n");  $$=con($1);}
-        | IDENTIFIER                            { REDUCE printf("parser.expr: VAR\n");  $$=sem.varInEx($1);}
-        | '-' expr %prec UMINUS                 { REDUCE printf("parser.expr: UMIN\n"); $$=  opr(UMINUS, 1, $2); }
-        | expr '+' expr                         { REDUCE printf("parser.expr: ADD\n");  $$ = opr('+', 2, $1, $3);}
-        | expr '-' expr                         { REDUCE printf("parser.expr: SUB\n");  $$ = opr('-', 2, $1, $3);}
-        | expr '*' expr                         { REDUCE printf("parser.expr: MUL\n");  $$ = opr('*', 2, $1, $3);}
-        | expr '/' expr                         { REDUCE printf("parser.expr: DIV\n");  $$ = opr('/', 2, $1, $3);}
-        | expr '<' expr                         { REDUCE printf("parser.expr: <\n");    $$ = opr('<', 2, $1, $3);}
-        | expr '>' expr                         { REDUCE printf("parser.expr: >\n");    $$ = opr('>', 2, $1, $3);}
-        | expr LEQ expr                         { REDUCE printf("parser.expr: LE\n");   $$ = opr(LEQ, 2, $1, $3);}
-        | expr GEQ expr                         { REDUCE printf("parser.expr: GEQ\n");  $$ = opr(GEQ, 2, $1, $3);}
-        | expr NEQ expr                         { REDUCE printf("parser.expr: NE\n");   $$ = opr(NEQ, 2, $1, $3);}
-        | expr EQQ expr                         { REDUCE printf("parser.expr: EQ\n");   $$ = opr(EQQ, 2, $1, $3);}
-        | '(' expr ')'                          { REDUCE printf("parser.expr: '(' expr ')'\n");  $$ = $2; }
-        ;
-
-const_expr:
-        V_INTEGER                                     { REDUCE printf("parser.const_expr: INTEGER\n"); }
-        | V_FLOAT                                     { REDUCE printf("parser.const_expr: FLOAT\n"); }
-        | '-' const_expr %prec UMINUS                 { REDUCE printf("parser.const_expr: UMIN\n"); }
-        | const_expr '+' const_expr                   { REDUCE printf("parser.const_expr: ADD\n"); }
-        | const_expr '-' const_expr                   { REDUCE printf("parser.const_expr: SUB\n"); }
-        | const_expr '*' const_expr                   { REDUCE printf("parser.const_expr: MUL\n"); }
-        | const_expr '/' const_expr                   { REDUCE printf("parser.const_expr: DIV\n"); }
-        | const_expr '<' const_expr                   { REDUCE printf("parser.const_expr: <\n"); }
-        | const_expr '>' const_expr                   { REDUCE printf("parser.const_expr: >\n"); }
-        | const_expr LEQ const_expr                   { REDUCE printf("parser.const_expr: LE\n"); }
-        | const_expr GEQ const_expr                   { REDUCE printf("parser.const_expr: GEQ\n"); }
-        | const_expr NEQ const_expr                   { REDUCE printf("parser.const_expr: NE\n"); }
-        | const_expr EQQ const_expr                   { REDUCE printf("parser.const_expr: EQ\n"); }
-        | '(' const_expr ')'                          { REDUCE printf("parser.const_expr: '(' const_expr ')'\n"); }
-        ;
+*/
 %%
 
 

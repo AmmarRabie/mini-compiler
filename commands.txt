@@ -1,11 +1,11 @@
 #####3 debugging
-bison --yacc grammer.y -d
+bison --yacc grammer.y -d 
 flex lex.l
 g++ -g y.tab.c lex.yy.c Entry.cpp SymbolTable.cpp SymbolTableTree.cpp ast.cpp SymanticAnalyzer.cpp
 gdb --args a.exe tests/compiler/test4.c  tests/compiler/test4.txt
 
 ###### normal
-bison --yacc grammer.y -d
+bison --yacc grammer.y -d --report=state
 flex lex.l
 g++  y.tab.c lex.yy.c Entry.cpp SymbolTable.cpp SymbolTableTree.cpp ast.cpp SymanticAnalyzer.cpp
-a.exe tests/compiler/test4.c  tests/compiler/test4.txt
+./a.exe tests/compiler/test4.c  tests/compiler/test4.txt

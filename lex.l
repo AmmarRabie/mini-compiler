@@ -50,8 +50,9 @@ cChar  '.'
 "case" { yylval.iValue =CASE; MATCH RETURN (CASE);}
 "default" {yylval.iValue =DEFAULT; MATCH RETURN (DEFAULT);}
 "while" { yylval.iValue =WHILE; MATCH RETURN (WHILE);}
-"until" { yylval.iValue =UNTIL; MATCH RETURN (UNTIL);}
 "for" { yylval.iValue =FOR; MATCH RETURN (FOR);}
+"break" { yylval.iValue =BREAK; MATCH RETURN (BREAK);}
+
 
 (function|#) {MATCH RETURN(FUNCTION); };
 
@@ -88,8 +89,13 @@ cChar  '.'
     //printf("end of statement\n");
     RETURN(SEMICOLON);
 }
+{number}{letter}{validChar}* { MATCH
+    RETURN(INVALID_IDENTIFIER);
+}
 
-
+. { MATCH
+RETURN(UNMATCHED);
+}
 
 %%
 int yywrap(void) {
