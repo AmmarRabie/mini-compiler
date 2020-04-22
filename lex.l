@@ -6,7 +6,7 @@
 #include "SymbolTableTree.h"
 #include "y.tab.h"
 using namespace std;
-void yyerror(char *);
+void yyerror(char const *);
 void onError(char *);
 extern int yylex();
 
@@ -31,6 +31,7 @@ cChar  '.'
 %%
 
 [ \t]+        ;       /* ignore whitespace */
+\/\/.*        ;       /* ignore comments */
 \n            ;
 
 

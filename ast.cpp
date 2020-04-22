@@ -3,15 +3,27 @@
 using namespace std;
 
 #define SIZEOF_NODETYPE ((char *)&p->con - (char *)p)
+
 nodeType *con(int value) {
- nodeType *p;
- /* allocate node */
- if ((p =( nodeType *) malloc(sizeof(nodeType))) == NULL)
- cout<<"out of memory"<<endl;
- /* copy information */
- p->type = typeCon;
- p->con.value = value;
- return p;
+    nodeType *p;
+    /* allocate node */
+    if ((p = (nodeType *)malloc(sizeof(nodeType))) == NULL)
+        cout << "out of memory" << endl;
+    /* copy information */
+    p->type = typeIntCon;
+    p->intCon.value = value;
+    return p;
+}
+
+nodeType *con(float value) {
+    nodeType *p;
+    /* allocate node */
+    if ((p = (nodeType *)malloc(sizeof(nodeType))) == NULL)
+        cout << "out of memory" << endl;
+    /* copy information */
+    p->type = typeRealCon;
+    p->realCon.value = value;
+    return p;
 }
 nodeType *id(char* i) {
  nodeType *p;

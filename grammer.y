@@ -34,7 +34,8 @@ cout<<"test defined"<<endl;
 #endif
 
 int yylex(void);
-void yyerror(char *s);
+void yyerror(char const *s);
+int ex(nodeType *p);
 
 %}
 
@@ -87,7 +88,7 @@ void yyerror(char *s);
 %%
 
 program:
-          program stmt                                                                 { REDUCE printf("[Success]\n"); }
+          program stmt                                                                 { REDUCE printf("[Success Parsing]\n"); ex($2); freeNode($2);}
         | /* NULL */                                                                   { REDUCE printf("[epsilon prog]\n");}
 		;
 
@@ -210,7 +211,7 @@ _stmt_list:
         | stmt _stmt_list        { $$ = opr(';', 2, $1, $2); }
         ;
 
-expr:
+expr:   
           V_INTEGER                             { REDUCE printf("parser.expr: INTEGER\n");  $$=con($1); }
         | V_FLOAT                               { REDUCE printf("parser.expr: FLOAT\n");  $$=con($1);}
         | V_CHR                                 { REDUCE printf("parser.expr: CHR value \n");  $$=con($1);}
@@ -231,7 +232,6 @@ expr:
 
 const_expr:
         V_INTEGER                                     { REDUCE printf("parser.const_expr: INTEGER\n"); }
-        | V_FLOAT                                     { REDUCE printf("parser.const_expr: FLOAT\n"); }
         | '-' const_expr %prec UMINUS                 { REDUCE printf("parser.const_expr: UMIN\n"); }
         | const_expr '+' const_expr                   { REDUCE printf("parser.const_expr: ADD\n"); }
         | const_expr '-' const_expr                   { REDUCE printf("parser.const_expr: SUB\n"); }
@@ -249,7 +249,7 @@ const_expr:
 
 
 
-void yyerror(char *s) {
+void yyerror(char const *s) {
     cout<<"line : "<<yylineno<<" : "<<s<<endl;
     //exit(1);
 }
@@ -278,6 +278,138 @@ int main(int argc, char *argv[]) {
 
 	yyparse();
 
+    return 0;
+}
+
+int getVarSize(int type){
+      switch (type) {
+        case T_INT: return  4; 
+        case T_FLOAT: return 4;
+        case T_CHR: return 1;
+    }
+}
+
+int ex(nodeType *p){
+    static int label = 0;
+    // static int stackPtr = INT_MAX;
+    // static stack<int> scopeStack = stack<int>();
+    int lable1, label2;
+    if (!p) return 0;
+    Entry* eptr;
+    int varSize;
+    char byteOrWord;
+    switch (p->type) {
+        case typeIntCon:
+            printf("pushw %d\n", p->intCon.value);
+            break;
+        case typeRealCon:
+            printf("pushw %f\n", p->realCon.value);
+            break;
+        case typeId:
+            eptr = sym->find_symbol(p->id.i);
+            varSize = eptr? getVarSize(eptr->type) : 0;
+            byteOrWord = varSize == 1? 'b' : 'w';
+            // if(eptr->memLoc == -1){
+            //     printf("push%c 0\n",byteOrWord); // dummy value allocation push
+            //     stackPtr -= varSize;
+            // }else{
+            //     printf("ld%c r3, %d\n", byteOrWord);
+            //     printf("push%c r3\n",byteOrWord);
+            // }
+            break;
+        case typeOpr:
+            eptr = sym->find_symbol(p->opr.op[0]->id.i);
+            varSize = eptr? getVarSize(eptr->type) : 0;
+            byteOrWord = varSize == 1? 'b' : 'w';
+            switch (p->opr.oper) {
+                case '=':
+                    ex(p->opr.op[1]);
+                    // if(byteOrWord,eptr->memLoc == -1){
+                    //     ex(p->opr.op[0]);
+                    // }
+                    printf("pop%c r3\n",byteOrWord);
+                    // printf("sto%c %d, r3\n",byteOrWord,eptr->memLoc);
+                    printf("push%c r3\n",byteOrWord); // any expr res pushed to stack
+                    break;
+                case WHILE:
+                    printf("L%03d:\n", lable1 = label++);
+                    ex(p->opr.op[0]);
+                    printf("jz L%03d\n", label2 = label++);
+                    ex(p->opr.op[1]);
+                    printf("jmp L%03d\n", lable1);
+                    printf("L%03d:\n", label2);
+                    break;
+                case IF:
+                    ex(p->opr.op[0]);
+                    if (p->opr.nops > 2) {
+                        /* if else */
+                        printf("jz L%03d\n", lable1 = label++);
+                        ex(p->opr.op[1]);
+                        printf("jmp L%03d\n", label2 = label++);
+                        printf("L%03d:\n", lable1);
+                        ex(p->opr.op[2]);
+                        printf("L%03d:\n", label2);
+                    } else {
+                        /* if */
+                        printf("jz L%03d\n", lable1 = label++);
+                        ex(p->opr.op[1]);
+                        printf("L%03d:\n", lable1);
+                    }
+                    break;
+                case PRINT:
+                    ex(p->opr.op[0]);
+                    printf("print\n");
+                    break;
+                case UMINUS:
+                    ex(p->opr.op[0]);
+                    printf("neg\n");
+                    break;
+                case -1:
+                    printf("nop\n");
+                    break;
+                default:
+                    varSize = 0; //TODO change this to var size of bigger operand
+                    byteOrWord = varSize == 1? 'b' : 'w';
+                    ex(p->opr.op[0]);
+                    ex(p->opr.op[1]);
+                    switch (p->opr.oper) {
+                        case '+':
+                            printf("add r3,r1,r2\n");
+                            printf("push r3\n");
+                            break;
+                        case '-':
+                            printf("sub r3,r1,r2\n");
+                            printf("push r3\n");
+                            break;
+                        case '*':
+                            printf("mul r3,r1,r2\n");
+                            printf("push r3\n");
+                            break;
+                        case '/':
+                            printf("div r3,r1,r2\n");
+                            printf("push r3\n");
+                            break;
+                        case '<':
+                            printf("compLT\n");
+                            break;
+                        case '>':
+                            printf("compGT\n");
+                            break;
+                        case GEQ:
+                            printf("compGE\n");
+                            break;
+                        case LEQ:
+                            printf("compLE\n");
+                            break;
+                        case NEQ:
+                            printf("compNE\n");
+                            break;
+                        case EQQ:
+                            printf("compEQ\n");
+                            break;
+                    }
+            }
+    }
     return 0;
 }
 
