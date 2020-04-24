@@ -89,7 +89,7 @@ void yyerror(char *s);
 %%
 
 program:
-                        program _stmt                                                          {REDUCE printf("[Success]\n");}
+                        program _stmt                                                          {REDUCE printf("[Success]\n"); $2->ex();}
 
                         | /* NULL */                                                          { REDUCE printf("[epsilon prog]\n");}
                                 ;
@@ -98,10 +98,10 @@ program:
 _stmt:                                                                               
                         COMPUND_STATEMNET                                                       {REDUCE printf("Matched COMPUND_STATEMNET \n");} 
                         |EXPRESSION_STATEMENT SEMICOLON         
-                        |EXPRESSION_STATEMENT                                              {REDUCE  printf("[Line Number: %d] SEMICOLON Misssing \n",yylineno);}
+                        //|EXPRESSION_STATEMENT                                              {REDUCE  printf("[Line Number: %d] SEMICOLON Misssing \n",yylineno);}
                         |SELECTION_STATEMENT 
                         |ITERATION_STATEMENT 
-                        |UNMATCHED SEMICOLON                                                  { REDUCE yyerrok; yyclearin; printf("[Grammer] unmatched token \n") ;}
+                        //|UNMATCHED SEMICOLON                                                  { REDUCE yyerrok; yyclearin; printf("[Grammer] unmatched token \n") ;}
                         |error SEMICOLON                                                      { REDUCE yyerrok; yyclearin; }
         ;
 
@@ -173,16 +173,16 @@ DECLARATION_STATEMENT:
                         | type IDENTIFIER '('args_list')'                               { REDUCE printf("function prototype statement\n"); }
                         | type IDENTIFIER '('args_list')' '{'_stmt'}'                   { REDUCE printf("function definition stmt\n"); }        
                         
-                        |INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                           {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
+                        //|INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                           {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
 
         
-                        |type INVALID_IDENTIFIER                                               {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
+                        //|type INVALID_IDENTIFIER                                               {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
         
-                        |type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                      {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
+                        //|type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                      {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
 
         
         
-                        |CONST type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                            {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
+                        //|CONST type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                            {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);}
         
                         
                         
@@ -237,8 +237,8 @@ CONSTANT_EXPRESSION:
 IF_STATEMENT:
          IF '(' VARIABLE_EXPRESSION ')' _stmt %prec IFX                                                { REDUCE printf("Matched IF condition"); REDUCE $$ = opr(IF,2,$3,$5);}
         | IF '(' VARIABLE_EXPRESSION ')' _stmt ELSE _stmt                                                { REDUCE printf("if else stmt\n");$$ = opr(IF,3,$3,$5,$7); }
-        | IF '(' UNMATCHED ')' _stmt %prec IFX                                           {REDUCE yyerrok; yyclearin; printf("[Line: %d]The IF condition must contain boolean expression ",yylineno);}
-        | IF '(' UNMATCHED ')' _stmt ELSE _stmt                                           {REDUCE yyerrok; yyclearin; printf("[Line: %d]The IF condition must contain boolean expression ",yylineno);}
+        //| IF '(' UNMATCHED ')' _stmt %prec IFX                                           {REDUCE yyerrok; yyclearin; printf("[Line: %d]The IF condition must contain boolean expression ",yylineno);}
+        //| IF '(' UNMATCHED ')' _stmt ELSE _stmt                                           {REDUCE yyerrok; yyclearin; printf("[Line: %d]The IF condition must contain boolean expression ",yylineno);}
 
 SWITCH_STATEMENT:
                         SWITCH '(' CONSTANT_EXPRESSION ')'  SWITCH_CASES                               { REDUCE printf("switch cases\n"); }
@@ -306,17 +306,6 @@ type:
     ;
 
 
-
-/*
-stmt_list:
-          _stmt_list                  { REDUCE printf("Trying to reduce statment list\n"); $$ = $1; }
-        |        { $$ = opr(-1, 0); }
-        ;
-_stmt_list:
-          stmt                  {REDUCE printf("Trying to match a statement"); $$ = $1; }
-        | stmt  _stmt_list        { $$ = opr(';', 2, $1, $2); }
-        ;
-*/
 %%
 
 

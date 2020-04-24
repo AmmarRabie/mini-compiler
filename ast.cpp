@@ -1,5 +1,6 @@
 #include "ast.h"
 #include <iostream>
+#include "y.tab.h"
 using namespace std;
 
 #define SIZEOF_NODETYPE ((char *)&p->con - (char *)p)
@@ -69,3 +70,23 @@ void freeNode(nodeType *p) {
  free (p);
 }
 
+
+int ex(nodeType *p) {
+ if (!p) return 0;
+ switch(p->type)
+  {
+    case typeCon: return p->con.value;
+    case T_INT : 
+        if(p->opr.nops == 2)
+        {
+
+        }
+        else
+        {
+            
+        }
+        
+    
+ }
+ return 0;
+}

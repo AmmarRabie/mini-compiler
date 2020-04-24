@@ -13,7 +13,7 @@ using namespace std;
 typedef enum { typeCon, typeId, typeOpr ,typeType} nodeEnum;
 /* constants */
  struct conNodeType {
- double value; /* value of constant */
+    double value; /* value of constant */
 } ;
 /* identifiers */
  struct idNodeType {
