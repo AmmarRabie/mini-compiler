@@ -10,9 +10,15 @@ class SymbolTableTree
  SymbolTableTree * parent;
  vector<SymbolTableTree *> childrens;
  SymbolTable table;
+ int temp_count;
+ int label_count;
+
  
  public:
  string get_table_index();
+ string createTemp(nodeType *value);
+ string createLabel();
+
  SymbolTableTree(SymbolTableTree * parent,string index);
  SymbolTableTree* enter_scope(string scopeindex);
  Entry* find_symbol(string index);

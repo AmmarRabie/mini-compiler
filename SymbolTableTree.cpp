@@ -5,6 +5,8 @@ using namespace std;
 SymbolTableTree::SymbolTableTree(SymbolTableTree * parent,string index):table(index)
 {
     this->parent=parent;
+    this->temp_count=0;
+    this->label_count=0;
 }
 
 SymbolTableTree* SymbolTableTree::enter_scope(string index)
@@ -85,6 +87,21 @@ void SymbolTableTree::printTable()
     cout<<"Table :"<<endl;
     this->table.printTable();
     cout<<"##################"<<endl;
+}
+
+
+string SymbolTableTree::createTemp(nodeType *value)
+{
+    string index= "T"+to_string(this->temp_count++);
+
+    this->add_symbol(index,value,-1,0);
+    return index;
+}
+
+string SymbolTableTree::createLabel(){
+
+    string index= "Label"+to_string(this->label_count++);
+    return index;
 }
 
 

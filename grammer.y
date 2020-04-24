@@ -9,6 +9,8 @@
 #include "SymanticAnalyzer.h"
 using namespace std;
 string get_string(char * s);
+nodeType* expression(char operation, nodeType* ex1, nodeType* ex2);
+
 
 
 
@@ -61,11 +63,12 @@ void yyerror(char *s);
 %token <iValue> FOR " for statement"  DEFAULT "defualt statement"// flow controls
 %token <iValue> CONST "const keyword" 
 %token <iValue> T_INT "integer" T_FLOAT "float"  T_CHR "char" // types
+%token <iValue> TEMP
 
 
 %token <sValue>  UNMATCHED "unmatched"
 %token <sValue> INVALID_IDENTIFIER "invalid identifier"
-%type <nPtr>    _stmt SWITCH_STATEMENT  FUNCTION_CALL_STATEMENT ITERATION_STATEMENT SELECTION_STATEMENT COMPUND_STATEMNET EXPRESSION_STATEMENT ASSIGNMENT_STATEMENT DECLARATION_STATEMENT PRINT_STATEMENT VARIABLE_EXPRESSION IF_STATEMENT FOR_LOOP_STATEMENT    type for_init_stmt for_cond_stmt for_inc_stmt WHILE_LOOP_STATEMENT  
+%type <nPtr>     _stmt SWITCH_STATEMENT  FUNCTION_CALL_STATEMENT ITERATION_STATEMENT SELECTION_STATEMENT COMPUND_STATEMNET EXPRESSION_STATEMENT ASSIGNMENT_STATEMENT DECLARATION_STATEMENT PRINT_STATEMENT VARIABLE_EXPRESSION IF_STATEMENT FOR_LOOP_STATEMENT    type for_init_stmt for_cond_stmt for_inc_stmt WHILE_LOOP_STATEMENT  
 
 
 
@@ -89,7 +92,7 @@ void yyerror(char *s);
 %%
 
 program:
-                        program _stmt                                                          {REDUCE printf("[Success]\n"); $2->ex();}
+                        program _stmt                                                          {REDUCE printf("[Success]\n"); ex($2);}
 
                         | /* NULL */                                                          { REDUCE printf("[epsilon prog]\n");}
                                 ;
@@ -110,7 +113,8 @@ COMPUND_STATEMNET:
                         
                         { 
                                 REDUCE printf("enter block \n"); 
-                                sym=sym->enter_scope("New Scope");
+                                string label=sym->createLabel();
+                                sym=sym->enter_scope(label);
                                 sym->printTable();
                         }
                                 _stmt 
@@ -200,16 +204,27 @@ VARIABLE_EXPRESSION:
                         | V_CHR                                 { REDUCE printf("parser.VARIABLE_EXPRESSION: CHR value \n");  $$=con($1);}
                         | IDENTIFIER                            { REDUCE printf("parser.VARIABLE_EXPRESSION: VAR\n");  $$=sem.varInEx($1);}
                         | '-' VARIABLE_EXPRESSION %prec UMINUS                 { REDUCE printf("parser.VARIABLE_EXPRESSION: UMIN\n"); $$=  opr(UMINUS, 1, $2); }
-                        | VARIABLE_EXPRESSION '+' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: ADD\n");  $$ = opr('+', 2, $1, $3);}
-                        | VARIABLE_EXPRESSION '-' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: SUB\n");  $$ = opr('-', 2, $1, $3);}
-                        | VARIABLE_EXPRESSION '*' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: MUL\n");  $$ = opr('*', 2, $1, $3);}
-                        | VARIABLE_EXPRESSION '/' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: DIV\n");  $$ = opr('/', 2, $1, $3);}
-                        | VARIABLE_EXPRESSION '<' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: <\n");    $$ = opr('<', 2, $1, $3);}
-                        | VARIABLE_EXPRESSION '>' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: >\n");    $$ = opr('>', 2, $1, $3);}
-                        | VARIABLE_EXPRESSION LEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: LE\n");   $$ = opr(LEQ, 2, $1, $3);}
-                        | VARIABLE_EXPRESSION GEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: GEQ\n");  $$ = opr(GEQ, 2, $1, $3);}
-                        | VARIABLE_EXPRESSION NEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: NE\n");   $$ = opr(NEQ, 2, $1, $3);}
-                        | VARIABLE_EXPRESSION EQQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: EQ\n");   $$ = opr(EQQ, 2, $1, $3);}
+                        | VARIABLE_EXPRESSION '+' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: ADD\n");
+                                                                                                 $$=expression('+', $1, $3);
+                                                                                                 }
+                        | VARIABLE_EXPRESSION '-' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: SUB\n");
+                                                                                                $$=expression('-', $1, $3);}
+                        | VARIABLE_EXPRESSION '*' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: MUL\n"); 
+                                                                                                $$=expression('*', $1, $3);}
+                        | VARIABLE_EXPRESSION '/' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: DIV\n");
+                                                                                                 $$=expression('/', $1, $3);}
+                        | VARIABLE_EXPRESSION '<' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: <\n");
+                                                                                                $$=expression('<', $1, $3);}
+                        | VARIABLE_EXPRESSION '>' VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: >\n");
+                                                                                                  $$=expression('>', $1, $3);}
+                        | VARIABLE_EXPRESSION LEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: LE\n");
+                                                                                                $$=expression((char)LEQ, $1, $3);}
+                        | VARIABLE_EXPRESSION GEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: GEQ\n");
+                                                                                                  $$=expression((char)GEQ, $1, $3);}
+                        | VARIABLE_EXPRESSION NEQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: NE\n");
+                                                                                                  $$=expression((char)NEQ, $1, $3);}
+                        | VARIABLE_EXPRESSION EQQ VARIABLE_EXPRESSION                         { REDUCE printf("parser.VARIABLE_EXPRESSION: EQ\n");
+                                                                                                 $$=expression((char)EQQ, $1, $3);}
                         | '(' VARIABLE_EXPRESSION ')'                          { REDUCE printf("parser.VARIABLE_EXPRESSION: '(' VARIABLE_EXPRESSION ')'\n");  $$ = $2; }
                         ;
 
@@ -309,6 +324,12 @@ type:
 %%
 
 
+nodeType* expression(char operation, nodeType* ex1, nodeType* ex2)
+{
+        nodeType *operr = opr(operation, 2, ex1, ex2);
+        string index= sym->createTemp(operr);
+        return opr(TEMP,2,id((char *)index.c_str()),operr);
+}
 
 void yyerror(char *s) {
     cout<<"line : "<<yylineno<<" : "<<s<<endl;

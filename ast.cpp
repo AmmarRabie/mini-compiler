@@ -1,5 +1,4 @@
 #include "ast.h"
-#include <iostream>
 #include "y.tab.h"
 using namespace std;
 
@@ -71,22 +70,54 @@ void freeNode(nodeType *p) {
 }
 
 
-int ex(nodeType *p) {
- if (!p) return 0;
+string ex(nodeType *p) {
+    //cout<<"in function execute "<<endl;
+  //cout<<p->type<<endl;
+ string v;
+ if (!p) return v;
  switch(p->type)
   {
-    case typeCon: return p->con.value;
-    case T_INT : 
-        if(p->opr.nops == 2)
+    case typeCon: 
+        return to_string(p->con.value); 
+    case typeId: 
         {
+        string s=p->id.i;
+        return s;
+        }
+    case typeOpr :
+        switch (p->opr.oper)
+        {
+            case T_INT : 
+                if(p->opr.nops == 2)
+                {
+                string result= ex(p->opr.op[1]);
+                cout<<p->opr.op[0]->id.i<<" = "<<result<<endl;
+                }
+                break;
+            case TEMP :  
+                if(p->opr.nops == 2)
+                {
+                string result= ex(p->opr.op[1]);
+                cout<<p->opr.op[0]->id.i<<" = "<<result<<endl;
+                }
+                v=p->opr.op[0]->id.i;
+                return v;
+                break;
+            case '+' :  
+                {        
+                string v1=ex(p->opr.op[0]);
+                string v2=ex(p->opr.op[1]);
+                return  v1+" + "+ v2;
+                }
+            case '*' :
+                {          
+                string v1=ex(p->opr.op[0]);
+                string v2=ex(p->opr.op[1]);
+                return  v1+" * "+ v2;
+                }
+        }
 
-        }
-        else
-        {
-            
-        }
-        
-    
- }
- return 0;
+  }
+      
+ return v;
 }

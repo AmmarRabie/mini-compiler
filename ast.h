@@ -3,7 +3,8 @@
 #include<stdarg.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <iostream>
+using namespace std;
 
 #ifndef AST
 #define AST
@@ -44,12 +45,13 @@ typedef struct {
 
 
 /* prototypes */
+
 nodeType *opr(int oper, int nops, ...);
 nodeType *id(char* i);
 nodeType *con(int value);
 nodeType *ty(int t);
 void freeNode(nodeType *p);
-int ex(nodeType *p);
+string ex(nodeType *p);
 
 
 

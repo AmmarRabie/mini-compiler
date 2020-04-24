@@ -59,6 +59,7 @@ nodeType * SymanticAnalyzer::varDec(char* index,nodeType* value,int type)
 }
 
 
+
 nodeType * SymanticAnalyzer::varInEx(char* index)
 {
     Entry* en = sym->find_symbol(index);
@@ -84,6 +85,8 @@ nodeType * SymanticAnalyzer::varInEx(char* index)
     }
     return r;
 }
+
+
 
 
 

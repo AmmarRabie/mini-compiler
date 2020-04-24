@@ -93,10 +93,6 @@ cChar  '.'
     RETURN(INVALID_IDENTIFIER);
 }
 
-. { MATCH
-RETURN(UNMATCHED);
-}
-
 %%
 int yywrap(void) {
     printf("warping\n");
