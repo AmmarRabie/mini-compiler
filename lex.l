@@ -27,23 +27,30 @@ letter [a-zA-Z]
 validChar [0-9a-zA-Z_]
 number [0-9]+
 cChar  '.'
+strings ["]([^"])*["]
+array [\[][0-9]*[\]]
 
 %%
 
 [ \t]+        ;       /* ignore whitespace */
 \n            ;
-
-
+"//".*                                    {}
 
 "print" {yylval.iValue =PRINT; MATCH RETURN (PRINT);}
 ">=" { yylval.iValue =GEQ; MATCH RETURN (GEQ);}
 "<=" { yylval.iValue =LEQ; MATCH RETURN (LEQ);}
 "!=" { yylval.iValue =NEQ; MATCH RETURN (NEQ);}
 "==" { yylval.iValue =EQQ; MATCH RETURN (EQQ);}
+"&&" { yylval.iValue =AND; MATCH RETURN (AND);}
+"||" { yylval.iValue =OR; MATCH RETURN (OR);}
+
 "const" {yylval.iValue =CONST; MATCH RETURN (CONST);}
 "int"   {yylval.iValue =T_INT; MATCH RETURN (T_INT);}
 "char"  {yylval.iValue =T_CHR; MATCH RETURN (T_CHR);}
 "float" {yylval.iValue =T_FLOAT; MATCH RETURN (T_FLOAT);}
+"bool" {yylval.iValue =T_BOOL; MATCH RETURN (T_BOOL);}
+"false" {yylval.bValue =false; MATCH RETURN (V_BOOL);}
+"true" {yylval.bValue =true; MATCH RETURN (V_BOOL);}
 "if" { yylval.iValue =IF;MATCH RETURN (IF);}
 "else" { yylval.iValue =ELSE; MATCH RETURN (ELSE);}
 "switch" { yylval.iValue =SWITCH; MATCH RETURN (SWITCH);}
@@ -60,6 +67,18 @@ cChar  '.'
     return *yytext;
 }
 
+{array} {
+    string s =yytext;
+    s=s.substr(1,s.size()-2);
+    yylval.iValue =atoi((char*)s.c_str());
+    return (ARRAY);
+}
+{strings} {
+    string s =yytext;
+    s=s.substr(1,s.size()-2);
+    yylval.sValue =mystrdup((char*)s.c_str());
+    return (STRINGS);
+}
 {cChar} {
      yylval.cValue =yytext[1]; 
      //cout<<endl<<yylval.cValue<<endl;
@@ -89,8 +108,9 @@ cChar  '.'
     //printf("end of statement\n");
     RETURN(SEMICOLON);
 }
-{number}{letter}{validChar}* { MATCH
-    RETURN(INVALID_IDENTIFIER);
+
+{
+    RETURN(INVALID);
 }
 
 %%
@@ -105,13 +125,3 @@ void onError(char * message){
     yyerror(message);
 }
 
-
-char *mystrdup( char *c)
-{
-    char *dup =(char*) malloc(strlen(c) + 1);
-
-    if (dup != NULL)
-       strcpy(dup, c);
-
-    return dup;
-}

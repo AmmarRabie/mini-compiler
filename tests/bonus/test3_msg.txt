@@ -1,0 +1,56 @@
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = z : value =  Initialized : type = integer
+#####################################################
+[line 6 Success ]
+Symbol Table created with index 'scope0'
+##################  Symbol Table ####################
+parent scope : Global
+current scope : scope0
+children scopes  :
+Table :
+index = z : value =  Initialized : type = integer
+#####################################################
+[line 10 Success ]
+##################  Symbol Table ####################
+parent scope : Global
+current scope : scope0
+children scopes  :
+Table :
+index = xv : value =  Initialized : type = integer
+index = z : value =  Initialized : type = integer
+#####################################################
+[line 11 Success ]
+##################  Symbol Table ####################
+parent scope : Global
+current scope : scope0
+children scopes  :
+Table :
+index = xv : value =  Initialized : type = integer
+index = z : value =  Initialized : type = integer
+#####################################################
+[line 12 Success ]
+##################  Symbol Table ####################
+parent scope : Global
+current scope : scope0
+children scopes  :
+Table :
+index = xv : value =  Initialized : type = integer
+index = z : value =  Initialized : type = integer
+#####################################################
+[line 13 Success ]
+while stmt
+ll  Label1
+[line 14 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+scope0
+Table :
+index = afterWhile : value =  Initialized : type = char[]
+index = z : value =  Initialized : type = integer
+#####################################################
+[line 16 Success ]
+warping

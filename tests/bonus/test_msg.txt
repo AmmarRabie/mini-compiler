@@ -1,0 +1,48 @@
+var dec cehck scope   0
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = xyz : value =  Initialized : type = integer
+#####################################################
+[line 2 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = xyz : value =  Initialized : type = integer
+#####################################################
+[line 3 Success ]
+Symbol Table created with index 'Label0'
+var dec cehck scope   0
+##################  Symbol Table ####################
+parent scope : Global
+current scope : Label0
+children scopes  :
+Table :
+index = zzz : value =  Initialized : type = integer
+#####################################################
+[lineeeeeeeeeeeee 7 Success ]
+var dec cehck scope   0
+##################  Symbol Table ####################
+parent scope : Global
+current scope : Label0
+children scopes  :
+Table :
+index = y : value =  Initialized : type = integer
+index = zzz : value =  Initialized : type = integer
+#####################################################
+[lineeeeeeeeeeeee 8 Success ]
+Matched IF conditionll  Label1
+[line 11 Success ]
+var dec cehck scope   0
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Label0
+Table :
+index = x : value =  Initialized : type = integer
+index = xyz : value =  Initialized : type = integer
+#####################################################
+[line 11 Success ]
+warping

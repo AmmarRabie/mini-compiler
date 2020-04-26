@@ -1,0 +1,72 @@
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = var2 : value =  Initialized : type = integer
+#####################################################
+[line 11 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = ch : value =  Initialized : type = char
+index = var2 : value =  Initialized : type = integer
+#####################################################
+[line 12 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 13 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = ramy : value =  Initialized : type = char[]
+index = var2 : value =  Initialized : type = integer
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 14 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = ramy : value =  Initialized : type = char[]
+index = var2 : value =  Initialized : type = integer
+index = var : value =  Not Initialized : type = float
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 17 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = result : value =  Not Initialized : type = float
+index = ch : value =  Initialized : type = char
+index = var : value =  Not Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = ramy : value =  Initialized : type = char[]
+index = f : value =  Initialized : type = float
+#####################################################
+[line 18 Success ]
+ line :21 : semntic error, variable var not initilized 
+[line 21 Success ]
+ line :24 : semntic error, variable notDefined not defined
+[line 24 Success ]
+ line :27 : semntic error, variable result Redeclared
+[line 27 Success ]
+ line : 30 : type mismatch integer conflicts with char[]
+[line 30 Success ]
+ line : 32 : type mismatch integer conflicts with char
+[line 32 Success ]
+ line : 34 : type mismatch integer conflicts with bool
+[line 34 Success ]
+ line :36 Type mismatch integer conflitcs with bool
+[line 36 Success ]
+warping

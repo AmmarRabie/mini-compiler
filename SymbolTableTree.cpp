@@ -71,14 +71,14 @@ string SymbolTableTree::get_table_index()
 
 void SymbolTableTree::printTable()
 {
-    cout<<"##################"<<endl;
+    cout<<"##################  Symbol Table ####################"<<endl;
     if (this->parent !=NULL)
     {
-        cout << "parent scope is "<<this->parent->get_table_index()<<endl;
+        cout << "parent scope : "<<this->parent->get_table_index()<<endl;
     }
-    cout <<"current scope is "<< this->get_table_index()<<endl;
+    cout <<"current scope : "<< this->get_table_index()<<endl;
 
-    cout<<"children scopes  are :"<<endl;
+    cout<<"children scopes  :"<<endl;
 
     for (int i=0;i<this->childrens.size();i++)
     {
@@ -86,22 +86,18 @@ void SymbolTableTree::printTable()
     }
     cout<<"Table :"<<endl;
     this->table.printTable();
-    cout<<"##################"<<endl;
+    cout<<"#####################################################"<<endl;
 }
 
 
-string SymbolTableTree::createTemp(nodeType *value)
+string SymbolTableTree::createTemp(nodeType *value,int type)
 {
     string index= "T"+to_string(this->temp_count++);
 
-    this->add_symbol(index,value,-1,0);
+    this->add_symbol(index,value,type,0);
     return index;
 }
 
-string SymbolTableTree::createLabel(){
 
-    string index= "Label"+to_string(this->label_count++);
-    return index;
-}
 
 

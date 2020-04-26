@@ -1,0 +1,14 @@
+MOV  3    xyz
+MUL  3  7  T0
+MOV  T0    xyz
+MOV  30    zzz
+MUL  zzz  90  T0
+MOV  T0    y
+LT  1  3  T1
+IF NOT  T1 GOTO Label1
+Label0 :
+MOV  30    zzz
+MUL  zzz  90  T0
+MOV  T0    y
+Label1 :
+MOV  3    x

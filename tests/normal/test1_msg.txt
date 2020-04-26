@@ -1,0 +1,109 @@
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = var2 : value =  Initialized : type = integer
+#####################################################
+[line 6 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = ch : value =  Initialized : type = char
+index = var2 : value =  Initialized : type = integer
+#####################################################
+[line 7 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 8 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = result1 : value =  Not Initialized : type = integer
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 9 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = b1 : value =  Initialized : type = bool
+index = f : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = result1 : value =  Not Initialized : type = integer
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 10 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = result2 : value =  Not Initialized : type = float
+index = ch : value =  Initialized : type = char
+index = result1 : value =  Not Initialized : type = integer
+index = var2 : value =  Initialized : type = integer
+index = f : value =  Initialized : type = float
+index = b1 : value =  Initialized : type = bool
+#####################################################
+[line 12 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = result2 : value =  Not Initialized : type = float
+index = ch : value =  Initialized : type = char
+index = result1 : value =  Initialized : type = integer
+index = var2 : value =  Initialized : type = integer
+index = f : value =  Initialized : type = float
+index = b1 : value =  Initialized : type = bool
+#####################################################
+[line 14 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = ch : value =  Initialized : type = char
+index = b1 : value =  Initialized : type = bool
+index = result2 : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = result1 : value =  Initialized : type = integer
+#####################################################
+[line 16 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = result3 : value =  Initialized : type = char
+index = f : value =  Initialized : type = float
+index = ch : value =  Initialized : type = char
+index = b1 : value =  Initialized : type = bool
+index = result2 : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = result1 : value =  Initialized : type = integer
+#####################################################
+[line 18 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = b2 : value =  Initialized : type = bool
+index = result3 : value =  Initialized : type = char
+index = f : value =  Initialized : type = float
+index = ch : value =  Initialized : type = char
+index = b1 : value =  Initialized : type = bool
+index = result2 : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = result1 : value =  Initialized : type = integer
+#####################################################
+[line 21 Success ]
+warping

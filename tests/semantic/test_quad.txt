@@ -1,0 +1,4 @@
+MOV  7    var2
+MOV  97    ch
+MOV  3.422000    f
+MOV  0x68656C6C6F    ramy

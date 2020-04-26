@@ -1,0 +1,15 @@
+MOV  3    z
+NEQ  z  9  T0
+IF NOT  T0 GOTO Label1
+Label0 :
+MOV  1    z
+ADD  3  2  T0
+MOV  T0    xv
+ADD  z  xv  T1
+MOV  T1    z
+NEG  1  T2
+MOV  T2    xv
+NEQ  z  9  T0
+IF  T0 GOTO  Label0
+Label1 :
+MOV  0x5768696C65    afterWhile

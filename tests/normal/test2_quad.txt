@@ -1,0 +1,10 @@
+MOV  7    var2
+MOV  97    ch
+MOV  3.422000    f
+MOV  3431    test3
+ADD  3  7  T0
+MUL  var2  3.300000  T1
+DIV  T1  f  T2
+ADD  T0  T2  T3
+ADD  T3  test3  T4
+MOV  T4    result
