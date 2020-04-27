@@ -4,31 +4,23 @@
 #include <stdarg.h>
 #include <typeinfo>
 #include <fstream>
-
 #include <iostream>
-#include "ast.h"
-#include "SymanticAnalyzer.h"
-using namespace std;
-string get_string(char * s);
 
+#include "ast/ast.h"
+#include "semantic/SymanticAnalyzer.h"
+using namespace std;
+
+
+string get_string(char * s);
 nodeType* unaryExpression(int operation, nodeType* ex1);
 nodeType* binaryExpression(int operation, nodeType* ex1, nodeType* ex2);
 string get_type_name(int type);
-
 int label_count=0;
 string createLabel();
 int scopes_count=0;
 string last_label;
 string createScope();
-
 bool syntax_error=false;
-
-
-
-
-
-
-// begining the symbol Table
 
 extern int yylex();
 extern int yyparse();
@@ -36,18 +28,7 @@ extern FILE *yyin;
 extern int yylineno, yychar;
 
 SymbolTableTree * sym=new SymbolTableTree(NULL,"Global");
-
 SymanticAnalyzer sem(sym,&yylineno);
-
-#ifdef TEST // run test cases
-cout<<"test defined"<<endl;
-#endif
-
-#ifdef DEBUG
-#define REDUCE cout<<"reduce at line "<<__LINE__<<endl;
-#else
-#define REDUCE
-#endif
 
 int yylex(void);
 void yyerror(char *s);
@@ -97,7 +78,6 @@ string label;
 %type <nPtr>      SMALL_PROGRAM _stmt  ITERATION_STATEMENT SELECTION_STATEMENT COMPUND_STATEMNET EXPRESSION_STATEMENT ASSIGNMENT_STATEMENT DECLARATION_STATEMENT VARIABLE_EXPRESSION IF_STATEMENT type  WHILE_LOOP_STATEMENT  
 
 
-
 %left <iValue> EQQ NEQ 
 %left <iValue> '>' '<'
 %left <iValue> LEQ  GEQ 
@@ -110,34 +90,33 @@ string label;
 
 
 
-
-
 // %type <nPtr> stmt expr stmt_list
 %start program
 
 %%
 
 program:
-                        program _stmt                                                          {REDUCE printf("[line %d Success ]\n",yylineno);
+                        program _stmt                                                          { printf("[line %d Success ]\n",yylineno);
                                                                                                  ex($2,outputFile);
+                                                                                                 freeNode($2);
                                                                                                   }
 
-                        | /* NULL */                                                          { // REDUCE printf("[epsilon prog]\n");
+                        | /* NULL */                                                          { //   printf("[epsilon prog]\n");
                                                                                                 }
                                 ;
 
 
 _stmt:                                                                               
-                        COMPUND_STATEMNET                                                       {// REDUCE printf("Matched COMPUND_STATEMNET \n");
+                        COMPUND_STATEMNET                                                       {//   printf("Matched COMPUND_STATEMNET \n");
                                                                                                 } 
                         |EXPRESSION_STATEMENT SEMICOLON                                
                         |SELECTION_STATEMENT 
                         |ITERATION_STATEMENT 
-                        |error SEMICOLON                                                      { REDUCE yyerrok; yyclearin; $$=opr(-1,0);syntax_error=true; }
+                        |error SEMICOLON                                                      {   yyerrok; yyclearin; $$=opr(-1,0);syntax_error=true; }
         ;
 
 SMALL_PROGRAM :
-                        SMALL_PROGRAM _stmt                                                          {REDUCE printf("[line %d Success ]\n",yylineno);
+                        SMALL_PROGRAM _stmt                                                          {  printf("[line %d Success ]\n",yylineno);
                                                                                                      $$=opr(60*100,2,$1,$2);
                                                                                                   }
 
@@ -149,7 +128,7 @@ SMALL_PROGRAM :
 COMPUND_STATEMNET:
                         '{' 
                         { 
-                                // REDUCE printf("enter block \n"); 
+                                //   printf("enter block \n"); 
                                 string scope = createScope();
                                 sym=sym->enter_scope(scope);
                                 sem.setSym(sym);
@@ -160,7 +139,7 @@ COMPUND_STATEMNET:
                                 sem.setSym(sym);
                         }
                         '}'
-                        { // REDUCE printf("stmt list (block structure)\n");
+                        { //   printf("stmt list (block structure)\n");
                         string label=   createLabel();
                         char * s= mystrdup((char*)(label.c_str()));
                          $$ = opr (52*100,2,$3,id(s));
@@ -170,11 +149,11 @@ COMPUND_STATEMNET:
 
 EXPRESSION_STATEMENT:
 
-                        /* NULL */                                                             {  // REDUCE printf("parser1:empty statement\n");
+                        /* NULL */                                                             {  //   printf("parser1:empty statement\n");
                                                                                                 $$ = opr(';', 2, NULL, NULL); }
                         |ASSIGNMENT_STATEMENT
                         |DECLARATION_STATEMENT
-                        |VARIABLE_EXPRESSION                                                  {  REDUCE printf("parserW2: expression stmt\n");$$ = $1; }
+                        |VARIABLE_EXPRESSION                                                  {    printf("parserW2: expression stmt\n");$$ = $1; }
                         ;
 
 SELECTION_STATEMENT:
@@ -186,38 +165,38 @@ ITERATION_STATEMENT:
 
 ASSIGNMENT_STATEMENT:
                         IDENTIFIER '=' VARIABLE_EXPRESSION                                   {  
-                                                                                                // REDUCE printf("parser3: Assignmet stmt\n");
+                                                                                                //   printf("parser3: Assignmet stmt\n");
                                                                                                 $$ = sem.varAss($1,$3,syntax_error);
                                                                                               }
                         ;
 
 DECLARATION_STATEMENT:
                         type  IDENTIFIER ARRAY                                      {
-                                                                                                // REDUCE printf("parser: Array Declaration\n");
+                                                                                                //   printf("parser: Array Declaration\n");
                                                                                                 $$=sem.varDec($2,NULL,$1->ty.t*100,syntax_error);
                                                                                        }
                         |type  IDENTIFIER ARRAY '=' STRINGS                                     {
-                                                                                                // REDUCE printf("parser: Array Declaration with inilization\n");
+                                                                                                //   printf("parser: Array Declaration with inilization\n");
                                                                                                 nodeType * val=strr($5);
                                                                                                 $$=sem.varDec($2,val,$1->ty.t*100,syntax_error);
                                                                                         }
 
                         |type IDENTIFIER                                                 {  
-                                                                                                // REDUCE printf("parser5: declaration statement\n");
+                                                                                                //   printf("parser5: declaration statement\n");
                                                                                                 $$=sem.varDec($2,NULL,$1->ty.t,syntax_error);
                                                                                         }
                         |type IDENTIFIER '=' VARIABLE_EXPRESSION                        { 
-                                                                                                // REDUCE printf("parser: declaration statement with init value\n");
+                                                                                                //   printf("parser: declaration statement with init value\n");
                                                                                                 $$=sem.varDec($2,$4,$1->ty.t,syntax_error);
                                                                                         }
 
                         
-                        //|INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                           {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno); syntax_error=true;}
+                        //|INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                           {   printf("[Line: %d]Invalid Variable Name ",yylineno); syntax_error=true;}
 
         
-                        //|type INVALID_IDENTIFIER                                               {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);syntax_error=true;}
+                        //|type INVALID_IDENTIFIER                                               {   printf("[Line: %d]Invalid Variable Name ",yylineno);syntax_error=true;}
         
-                        //|type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                      {REDUCE  printf("[Line: %d]Invalid Variable Name ",yylineno);syntax_error=true;}
+                        //|type INVALID_IDENTIFIER '=' VARIABLE_EXPRESSION                                      {   printf("[Line: %d]Invalid Variable Name ",yylineno);syntax_error=true;}
 
                 
                         
@@ -226,61 +205,61 @@ DECLARATION_STATEMENT:
 
 
 VARIABLE_EXPRESSION:
-                        V_INTEGER                               { // REDUCE printf("parser.VARIABLE_EXPRESSION: INTEGER\n");
+                        V_INTEGER                               { //   printf("parser.VARIABLE_EXPRESSION: INTEGER\n");
                                                                   $$=intt($1); }
-                        | V_FLOAT                               { // REDUCE printf("parser.VARIABLE_EXPRESSION: FLOAT\n");
+                        | V_FLOAT                               { //   printf("parser.VARIABLE_EXPRESSION: FLOAT\n");
                                                                   $$=floatt($1);}
-                        | V_CHR                                 { // REDUCE printf("parser.VARIABLE_EXPRESSION: CHR value \n");
+                        | V_CHR                                 { //   printf("parser.VARIABLE_EXPRESSION: CHR value \n");
                                                                   $$=charr($1);}
-                        | V_BOOL                                 { // REDUCE printf("parser.VARIABLE_EXPRESSION: CHR value \n");
+                        | V_BOOL                                 { //   printf("parser.VARIABLE_EXPRESSION: CHR value \n");
                                                                   $$=bo($1);}
-                        | IDENTIFIER                            { // REDUCE printf("parser.VARIABLE_EXPRESSION: VAR\n"); 
+                        | IDENTIFIER                            { //   printf("parser.VARIABLE_EXPRESSION: VAR\n"); 
                                                                  $$=sem.varInEx($1);}
-                        | '-' VARIABLE_EXPRESSION %prec UMINUS                                  { // REDUCE printf("parser.VARIABLE_EXPRESSION: UMIN\n"); 
+                        | '-' VARIABLE_EXPRESSION %prec UMINUS                                  { //   printf("parser.VARIABLE_EXPRESSION: UMIN\n"); 
                                                                                                 $$=  unaryExpression(UMINUS, $2); }
-                        | VARIABLE_EXPRESSION '+' VARIABLE_EXPRESSION                         {// REDUCE printf("parser.VARIABLE_EXPRESSION: ADD\n");
+                        | VARIABLE_EXPRESSION '+' VARIABLE_EXPRESSION                         {//   printf("parser.VARIABLE_EXPRESSION: ADD\n");
                                                                                                  $$=binaryExpression('+', $1, $3);
                                                                                                  }
-                        | VARIABLE_EXPRESSION '-' VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: SUB\n");
+                        | VARIABLE_EXPRESSION '-' VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: SUB\n");
                                                                                                 $$=binaryExpression('-', $1, $3);}
-                        | VARIABLE_EXPRESSION '*' VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: MUL\n"); 
+                        | VARIABLE_EXPRESSION '*' VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: MUL\n"); 
                                                                                                 $$=binaryExpression('*', $1, $3);}
-                        | VARIABLE_EXPRESSION '/' VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: DIV\n");
+                        | VARIABLE_EXPRESSION '/' VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: DIV\n");
                                                                                                  $$=binaryExpression('/', $1, $3);}
-                        | VARIABLE_EXPRESSION '<' VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: <\n");
+                        | VARIABLE_EXPRESSION '<' VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: <\n");
                                                                                                 $$=binaryExpression('<', $1, $3);}
-                        | VARIABLE_EXPRESSION '>' VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: >\n");
+                        | VARIABLE_EXPRESSION '>' VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: >\n");
                                                                                                   $$=binaryExpression('>', $1, $3);}
-                        | VARIABLE_EXPRESSION LEQ VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: LE\n");
+                        | VARIABLE_EXPRESSION LEQ VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: LE\n");
                                                                                                 $$=binaryExpression(LEQ, $1, $3);}
-                        | VARIABLE_EXPRESSION GEQ VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: GEQ\n");
+                        | VARIABLE_EXPRESSION GEQ VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: GEQ\n");
                                                                                                   $$=binaryExpression(GEQ, $1, $3);}
-                        | VARIABLE_EXPRESSION NEQ VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: NE\n");
+                        | VARIABLE_EXPRESSION NEQ VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: NE\n");
                                                                                                   $$=binaryExpression(NEQ, $1, $3);}
-                        | VARIABLE_EXPRESSION EQQ VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: EQ\n");
+                        | VARIABLE_EXPRESSION EQQ VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: EQ\n");
                                                                                                  $$=binaryExpression(EQQ, $1, $3);}
-                        | VARIABLE_EXPRESSION AND VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: EQ\n");
+                        | VARIABLE_EXPRESSION AND VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: EQ\n");
                                                                                                  $$=binaryExpression(AND, $1, $3);}
-                        | VARIABLE_EXPRESSION OR VARIABLE_EXPRESSION                         { // REDUCE printf("parser.VARIABLE_EXPRESSION: EQ\n");
+                        | VARIABLE_EXPRESSION OR VARIABLE_EXPRESSION                         { //   printf("parser.VARIABLE_EXPRESSION: EQ\n");
                                                                                                  $$=binaryExpression(OR, $1, $3);}
-                        | '(' VARIABLE_EXPRESSION ')'                                            { // REDUCE printf("parser.VARIABLE_EXPRESSION: '(' VARIABLE_EXPRESSION ')'\n"); 
+                        | '(' VARIABLE_EXPRESSION ')'                                            { //   printf("parser.VARIABLE_EXPRESSION: '(' VARIABLE_EXPRESSION ')'\n"); 
                                                                                                  $$ = $2; }
                         ;
 
 IF_STATEMENT:
-         IF '(' VARIABLE_EXPRESSION ')' _stmt %prec IFX                                                { REDUCE printf("Matched IF condition");
+         IF '(' VARIABLE_EXPRESSION ')' _stmt %prec IFX                                                {   printf("Matched IF condition");
                                                                                                         string newLabel=createLabel();
                                                                                                         cout<<"ll  " <<newLabel<<endl;
                                                                                                         char * ss= mystrdup((char*)newLabel.c_str());
                                                                                                          $$ = opr(IF,3,$3,$5,id(ss));
                                                                                                         }
-        | IF '(' VARIABLE_EXPRESSION ')' _stmt ELSE _stmt                                                { REDUCE printf("if else stmt\n");$$ = opr(IF,3,$3,$5,$7); }
+        | IF '(' VARIABLE_EXPRESSION ')' _stmt ELSE _stmt                                                {   printf("if else stmt\n");$$ = opr(IF,3,$3,$5,$7); }
         ;
 
 
 
 WHILE_LOOP_STATEMENT:
-        WHILE '(' VARIABLE_EXPRESSION ')' _stmt                                                       { REDUCE printf("while stmt\n");
+        WHILE '(' VARIABLE_EXPRESSION ')' _stmt                                                       {   printf("while stmt\n");
                                                                                                         string newLabel=createLabel();
                                                                                                         cout<<"ll  " <<newLabel<<endl;
                                                                                                         char * ss= mystrdup((char*)newLabel.c_str());

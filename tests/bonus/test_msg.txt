@@ -1,48 +1,44 @@
-var dec cehck scope   0
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
 index = xyz : value =  Initialized : type = integer
 #####################################################
-[line 2 Success ]
+[line 4 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
 index = xyz : value =  Initialized : type = integer
 #####################################################
-[line 3 Success ]
-Symbol Table created with index 'Label0'
-var dec cehck scope   0
-##################  Symbol Table ####################
-parent scope : Global
-current scope : Label0
+[line 5 Success ]
+##################  Symbol Table ####################
+current scope : Global
 children scopes  :
 Table :
-index = zzz : value =  Initialized : type = integer
+index = y : value =  Initialized : type = float
+index = xyz : value =  Initialized : type = integer
 #####################################################
-[lineeeeeeeeeeeee 7 Success ]
-var dec cehck scope   0
-##################  Symbol Table ####################
+[line 6 Success ]
+Symbol Table created with index 'scope0'
+##################  Symbol Table ####################
 parent scope : Global
-current scope : Label0
+current scope : scope0
 children scopes  :
 Table :
-index = y : value =  Initialized : type = integer
-index = zzz : value =  Initialized : type = integer
+index = xyz : value =  Initialized : type = float
 #####################################################
-[lineeeeeeeeeeeee 8 Success ]
+[line 9 Success ]
 Matched IF conditionll  Label1
-[line 11 Success ]
-var dec cehck scope   0
+[line 12 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
-Label0
+scope0
 Table :
 index = x : value =  Initialized : type = integer
+index = y : value =  Initialized : type = float
 index = xyz : value =  Initialized : type = integer
 #####################################################
-[line 11 Success ]
+[line 12 Success ]
 warping

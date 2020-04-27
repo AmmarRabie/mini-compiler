@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
-#include "ast.h"
-#include "SymbolTableTree.h"
+#include "ast/ast.h"
+#include "symbolTable/SymbolTableTree.h"
 #include "y.tab.h"
 using namespace std;
 void yyerror(char *);

@@ -1,5 +1,5 @@
 #include "SymbolTable.h"
-#include "y.tab.h"
+#include "../y.tab.h"
 using namespace std;
 
 #ifndef SYMBOL_TABLE_TREE

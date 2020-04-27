@@ -2,108 +2,200 @@
 current scope : Global
 children scopes  :
 Table :
-index = var2 : value =  Initialized : type = integer
+index = num1 : value =  Initialized : type = integer
 #####################################################
 [line 6 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = ch : value =  Initialized : type = char
-index = var2 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
 #####################################################
 [line 7 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = f : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = ch : value =  Initialized : type = char
+index = num3 : value =  Initialized : type = float
+index = num1 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
 #####################################################
 [line 8 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = f : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Not Initialized : type = integer
-index = ch : value =  Initialized : type = char
+index = bo4 : value =  Initialized : type = bool
+index = num3 : value =  Initialized : type = float
+index = num1 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
 #####################################################
 [line 9 Success ]
-##################  Symbol Table ####################
-current scope : Global
-children scopes  :
-Table :
-index = b1 : value =  Initialized : type = bool
-index = f : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Not Initialized : type = integer
-index = ch : value =  Initialized : type = char
-#####################################################
-[line 10 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = result2 : value =  Not Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = result1 : value =  Not Initialized : type = integer
-index = var2 : value =  Initialized : type = integer
-index = f : value =  Initialized : type = float
-index = b1 : value =  Initialized : type = bool
+index = num5 : value =  Not Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num3 : value =  Initialized : type = float
+index = num1 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
 #####################################################
 [line 12 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = result2 : value =  Not Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = result1 : value =  Initialized : type = integer
-index = var2 : value =  Initialized : type = integer
-index = f : value =  Initialized : type = float
-index = b1 : value =  Initialized : type = bool
+index = num6 : value =  Not Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Not Initialized : type = float
+#####################################################
+[line 13 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num7 : value =  Not Initialized : type = float
+index = num6 : value =  Not Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Not Initialized : type = float
 #####################################################
 [line 14 Success ]
-##################  Symbol Table ####################
-current scope : Global
-children scopes  :
-Table :
-index = f : value =  Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = b1 : value =  Initialized : type = bool
-index = result2 : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Initialized : type = integer
-#####################################################
-[line 16 Success ]
-##################  Symbol Table ####################
-current scope : Global
-children scopes  :
-Table :
-index = result3 : value =  Initialized : type = char
-index = f : value =  Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = b1 : value =  Initialized : type = bool
-index = result2 : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Initialized : type = integer
-#####################################################
-[line 18 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = b2 : value =  Initialized : type = bool
-index = result3 : value =  Initialized : type = char
-index = f : value =  Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = b1 : value =  Initialized : type = bool
-index = result2 : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Initialized : type = integer
+index = num7 : value =  Not Initialized : type = float
+index = num6 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Not Initialized : type = float
+#####################################################
+[line 17 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num7 : value =  Not Initialized : type = float
+index = num6 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Initialized : type = float
+#####################################################
+[line 18 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num7 : value =  Not Initialized : type = float
+index = num6 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Initialized : type = float
+#####################################################
+[line 20 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num7 : value =  Initialized : type = float
+index = num6 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Initialized : type = float
 #####################################################
 [line 21 Success ]
-warping
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num7 : value =  Initialized : type = float
+index = num6 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Initialized : type = float
+#####################################################
+[line 23 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num7 : value =  Initialized : type = float
+index = num6 : value =  Initialized : type = integer
+index = char2 : value =  Initialized : type = char
+index = num1 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = num5 : value =  Initialized : type = float
+#####################################################
+[line 24 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num5 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = char2 : value =  Initialized : type = char
+index = num6 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = num7 : value =  Initialized : type = float
+index = num1 : value =  Initialized : type = integer
+#####################################################
+[line 26 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num5 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = char2 : value =  Initialized : type = char
+index = num6 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = num7 : value =  Initialized : type = float
+index = num1 : value =  Initialized : type = integer
+#####################################################
+[line 28 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num5 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = char2 : value =  Initialized : type = char
+index = num6 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = num7 : value =  Initialized : type = float
+index = num1 : value =  Initialized : type = integer
+#####################################################
+[line 29 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = num5 : value =  Initialized : type = float
+index = bo4 : value =  Initialized : type = bool
+index = char2 : value =  Initialized : type = char
+index = num6 : value =  Initialized : type = integer
+index = num3 : value =  Initialized : type = float
+index = num7 : value =  Initialized : type = float
+index = num1 : value =  Initialized : type = integer
+#####################################################
+[line 30 Success ]
+warping

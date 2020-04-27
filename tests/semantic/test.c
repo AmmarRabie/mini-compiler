@@ -3,10 +3,7 @@
 // 1- using of variable not defined 
 // 2- redecleration of variables
 // 3- variable used without not initialized
-// 4- type checking (assign numeric value to string variable or expression contain string variable with numeric variables 
-
-
-// after sematinc check occur we have stopped code compilation (generating of quadrables)
+// 4- type checking (assign numeric value to string variable or expression contain string variable with numeric variables )
 
 int var2=7;
 char ch='a';
@@ -17,6 +14,18 @@ char ramy[]="hello";
 float var;
 float result;
 
+// casting (int and float ) no error
+result=var2+f;
+// type mismatch (string with numeuc value)
+result = 5 * ramy;
+// type mismatch (char with numeric values)
+result = 5*ch;
+// type mismatch (boolean with numeric values)
+result = 9/false;
+// type mismtac whe trying to declare variable;
+float mis = false;
+
+
 // using of var not initialized
 result = var*3;
 
@@ -26,14 +35,7 @@ result = notDefined *9;
 // variable redeclaration
 int result ;
 
-// type mismatch (string with numeuc value)
-result = 5 * ramy;
-// type mismatch (char with numeric values)
-result = 5*ch;
-// type mismatch (boolean with numeric values)
-result = 9/false;
-// type mismtac whe trying to declare variable;
-int mis = false;
+
 
 
 

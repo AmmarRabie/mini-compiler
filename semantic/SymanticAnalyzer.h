@@ -1,5 +1,5 @@
-#include "SymbolTableTree.h"
-#include "y.tab.h"
+#include "../symbolTable/SymbolTableTree.h"
+#include "../y.tab.h"
 
 class SymanticAnalyzer{
     private:

@@ -1,5 +1,5 @@
 #include "ast.h"
-#include "y.tab.h"
+#include "../y.tab.h"
 #include <fstream>
 #include <sstream>
 #include <iterator>

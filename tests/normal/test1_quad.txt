@@ -1,21 +1,22 @@
-MOV  7    var2
-MOV  97    ch
-MOV  3.422000    f
-MOV  1    b1
-ADD  5  var2  T0
-DIV  7  3  T1
-ADD  T0  T1  T2
-MOV  T2    result1
-MUL  f  9.300000  T3
-ADD  5.300000  T3  T4
-DIV  7.800000  3.900000  T5
-ADD  T4  T5  T6
-MOV  T6    result2
-ADD  ch  51  T7
-MOV  T7    result3
-MUL  4  4  T8
-MUL  5  7  T9
-LT  T8  T9  T10
-LT  342  789  T11
-OR  T10  T11  T12
-MOV  T12    b2
+MOV  7    num1
+MOV  97    char2
+MOV  3.422000    num3
+MOV  1    bo4
+MOV  3    num6
+MOV  9.900000    num5
+SUB  num6  num1  T0
+MOV  T0    num6
+ADD  num5  num3  T1
+MOV  T1    num7
+ADD  3  num1  T2
+MOV  T2    num6
+ADD  num5  6.300000  T3
+MOV  T3    num7
+ADD  7  8  T4
+MOV  T4    num6
+OR  0  1  T5
+MOV  T5    bo4
+AND  bo4  1  T6
+MOV  T6    bo4
+LT  num3  num7  T7
+MOV  T7    bo4
