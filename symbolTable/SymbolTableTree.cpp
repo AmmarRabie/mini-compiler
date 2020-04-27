@@ -5,6 +5,8 @@ using namespace std;
 SymbolTableTree::SymbolTableTree(SymbolTableTree * parent,string index):table(index)
 {
     this->parent=parent;
+    this->temp_count=0;
+    this->label_count=0;
 }
 
 SymbolTableTree* SymbolTableTree::enter_scope(string index)
@@ -69,14 +71,14 @@ string SymbolTableTree::get_table_index()
 
 void SymbolTableTree::printTable()
 {
-    cout<<"##################"<<endl;
+    cout<<"##################  Symbol Table ####################"<<endl;
     if (this->parent !=NULL)
     {
-        cout << "parent scope is "<<this->parent->get_table_index()<<endl;
+        cout << "parent scope : "<<this->parent->get_table_index()<<endl;
     }
-    cout <<"current scope is "<< this->get_table_index()<<endl;
+    cout <<"current scope : "<< this->get_table_index()<<endl;
 
-    cout<<"children scopes  are :"<<endl;
+    cout<<"children scopes  :"<<endl;
 
     for (int i=0;i<this->childrens.size();i++)
     {
@@ -84,7 +86,18 @@ void SymbolTableTree::printTable()
     }
     cout<<"Table :"<<endl;
     this->table.printTable();
-    cout<<"##################"<<endl;
+    cout<<"#####################################################"<<endl;
 }
+
+
+string SymbolTableTree::createTemp(nodeType *value,int type)
+{
+    string index= "T"+to_string(this->temp_count++);
+
+    this->add_symbol(index,value,type,0);
+    return index;
+}
+
+
 
 

@@ -1,0 +1,22 @@
+MOV  7    num1
+MOV  97    char2
+MOV  3.422000    num3
+MOV  1    bo4
+MOV  3    num6
+MOV  9.900000    num5
+SUB  num6  num1  T0
+MOV  T0    num6
+ADD  num5  num3  T1
+MOV  T1    num7
+ADD  3  num1  T2
+MOV  T2    num6
+ADD  num5  6.300000  T3
+MOV  T3    num7
+ADD  7  8  T4
+MOV  T4    num6
+OR  0  1  T5
+MOV  T5    bo4
+AND  bo4  1  T6
+MOV  T6    bo4
+LT  num3  num7  T7
+MOV  T7    bo4

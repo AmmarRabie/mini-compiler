@@ -39,10 +39,25 @@ SymbolTable::~SymbolTable()
   }
 }
 
+
+
+
 void SymbolTable::printTable()
 {
-     for (auto& it: this->table) {
-      cout<< "index = "<<it.first<<" : value = "<<it.second->value<<" : type = "<<it.second->type<<endl;
+     for (auto& it: this->table)
+      {
+       string type =get_type_name(it.second->type);
+       string initialized;
+       if (it.second->value==NULL)
+       {
+         initialized=" Not Initialized";
+       }
+       else
+       {
+         initialized=" Initialized";
+       }
+       if (it.first[0]!='T')
+      cout<< "index = "<<it.first<<" : value = "<<initialized<<" : type = "<<type<<endl;
   } 
 }
 

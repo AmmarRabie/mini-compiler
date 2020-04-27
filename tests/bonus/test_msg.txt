@@ -1,0 +1,44 @@
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = xyz : value =  Initialized : type = integer
+#####################################################
+[line 4 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = xyz : value =  Initialized : type = integer
+#####################################################
+[line 5 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = y : value =  Initialized : type = float
+index = xyz : value =  Initialized : type = integer
+#####################################################
+[line 6 Success ]
+Symbol Table created with index 'scope0'
+##################  Symbol Table ####################
+parent scope : Global
+current scope : scope0
+children scopes  :
+Table :
+index = xyz : value =  Initialized : type = float
+#####################################################
+[line 9 Success ]
+Matched IF conditionll  Label1
+[line 12 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+scope0
+Table :
+index = x : value =  Initialized : type = integer
+index = y : value =  Initialized : type = float
+index = xyz : value =  Initialized : type = integer
+#####################################################
+[line 12 Success ]
+warping

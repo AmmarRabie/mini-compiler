@@ -1,0 +1,23 @@
+MOV  7    var2
+MOV  97    ch
+MOV  3.422000    f
+MOV  1    b1
+MOV  0x72616D79    ramy
+ADD  var2  var2  T0
+MUL  var2  7  T1
+DIV  T1  3  T2
+SUB  T0  T2  T3
+MOV  T3    result1
+MUL  f  9.300000  T4
+ADD  5.300000  T4  T5
+DIV  7.800000  3.900000  T6
+ADD  T5  T6  T7
+MOV  T7    result2
+ADD  ch  51  T8
+MOV  T8    result4
+MUL  4  4  T9
+MUL  5  7  T10
+LT  T9  T10  T11
+LT  342  789  T12
+OR  T11  T12  T13
+MOV  T13    b2

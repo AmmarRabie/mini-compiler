@@ -1,5 +1,5 @@
 #include <iostream>
-#include "ast.h"
+#include "../ast/ast.h"
 using namespace std;
 class Entry{
     public:

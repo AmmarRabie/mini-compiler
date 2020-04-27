@@ -1,51 +1,0 @@
-[epsilon prog]
-parser2: type int
-line : 1 : syntax error, unexpected EQQ, expecting '='
-[Success]
-parser2: type int
-parser.expr: INTEGER
-parser: declaration statement with init value
-##################
-current scope is Global
-children scopes  are :
-Table :
-index = z : value = 0x800098470 : type = 272
-##################
-[Success]
-parser.expr: VAR
-x
-parser.expr: INTEGER
-parser.expr: EQ
-enter block 
-Symbol Table created with index 'New Scope'
-##################
-parent scope is Global
-current scope is New Scope
-children scopes  are :
-Table :
-##################
-parser2: type int
-parser5: declaration statement
-##################
-parent scope is Global
-current scope is New Scope
-children scopes  are :
-Table :
-index = m : value = 0 : type = 272
-##################
- exit block 
-##################
-current scope is Global
-children scopes  are :
-New Scope
-Table :
-index = z : value = 0x800098470 : type = 272
-##################
-stmt list (block structure)
-[Success]
-parser.expr: VAR
-z
-line : 8 : syntax error, unexpected '='
-[Success]
-line : 11 : syntax error, unexpected '}'
-warping

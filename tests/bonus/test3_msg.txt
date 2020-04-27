@@ -1,0 +1,37 @@
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = z : value =  Initialized : type = float
+#####################################################
+[line 5 Success ]
+Symbol Table created with index 'scope0'
+##################  Symbol Table ####################
+parent scope : Global
+current scope : scope0
+children scopes  :
+Table :
+index = xv : value =  Initialized : type = integer
+#####################################################
+[line 9 Success ]
+##################  Symbol Table ####################
+parent scope : Global
+current scope : scope0
+children scopes  :
+Table :
+index = xv : value =  Initialized : type = integer
+#####################################################
+[line 10 Success ]
+while stmt
+ll  Label1
+[line 11 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+scope0
+Table :
+index = afterWhile : value =  Initialized : type = char[]
+index = z : value =  Initialized : type = float
+#####################################################
+[line 13 Success ]
+warping

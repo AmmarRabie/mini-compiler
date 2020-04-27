@@ -1,5 +1,5 @@
 #include "SymbolTable.h"
-
+#include "../y.tab.h"
 using namespace std;
 
 #ifndef SYMBOL_TABLE_TREE
@@ -10,9 +10,15 @@ class SymbolTableTree
  SymbolTableTree * parent;
  vector<SymbolTableTree *> childrens;
  SymbolTable table;
+ int temp_count;
+ int label_count;
+
  
  public:
+ string last_label;
  string get_table_index();
+ string createTemp(nodeType *value,int type);
+
  SymbolTableTree(SymbolTableTree * parent,string index);
  SymbolTableTree* enter_scope(string scopeindex);
  Entry* find_symbol(string index);

@@ -1,0 +1,45 @@
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = var2 : value =  Initialized : type = integer
+#####################################################
+[line 5 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = ch : value =  Initialized : type = char
+index = var2 : value =  Initialized : type = integer
+#####################################################
+[line 6 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 7 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = f : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = result : value =  Not Initialized : type = float
+index = ch : value =  Initialized : type = char
+#####################################################
+[line 9 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = ch : value =  Initialized : type = char
+index = result : value =  Initialized : type = float
+index = var2 : value =  Initialized : type = integer
+index = f : value =  Initialized : type = float
+#####################################################
+[line 12 Success ]
+warping
