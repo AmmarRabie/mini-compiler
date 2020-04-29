@@ -382,7 +382,7 @@ nodeType* unaryExpression(int operation, nodeType* ex1)
         {
         nodeType *operr = opr(operation, 1, ex1);
         string index= sym->createTemp(operr,type);
-        return opr(TEMP,2,id((char *)index.c_str()),operr);
+        return opr(TEMP,2,id(mystrdup((char *)index.c_str())),operr);
         }
         else{
         cout<<" line : "<<yylineno<<" : "<< "type mismatch "<< get_type_name(sem.get_Type(ex1))<<endl;
