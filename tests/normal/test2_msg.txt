@@ -1,13 +1,11 @@
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
 index = var2 : value = 7 : type = integer
 #####################################################
 [line 6 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -15,8 +13,7 @@ index = ch : value = 0 : type = char
 index = var2 : value = 7 : type = integer
 #####################################################
 [line 7 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -25,8 +22,7 @@ index = var2 : value = 7 : type = integer
 index = ch : value = 0 : type = char
 #####################################################
 [line 8 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -36,8 +32,7 @@ index = var2 : value = 7 : type = integer
 index = ch : value = 0 : type = char
 #####################################################
 [line 9 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -48,9 +43,7 @@ index = var2 : value = 7 : type = integer
 index = ch : value = 0 : type = char
 #####################################################
 [line 10 Success ]
-
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -62,8 +55,7 @@ index = f : value = 3.422 : type = float
 index = b1 : value = 1 : type = bool
 #####################################################
 [line 13 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -76,10 +68,7 @@ index = f : value = 3.422 : type = float
 index = b1 : value = 1 : type = bool
 #####################################################
 [line 14 Success ]
-
-
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -92,8 +81,7 @@ index = f : value = 3.422 : type = float
 index = b1 : value = 1 : type = bool
 #####################################################
 [line 19 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -106,8 +94,7 @@ index = var2 : value = 7 : type = integer
 index = result1 : value = -2 : type = integer
 #####################################################
 [line 21 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -121,8 +108,7 @@ index = var2 : value = 7 : type = integer
 index = result1 : value = -2 : type = integer
 #####################################################
 [line 23 Success ]
-
-##################  Symbol Table ####################
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
@@ -137,6 +123,4 @@ index = var2 : value = 7 : type = integer
 index = result1 : value = -2 : type = integer
 #####################################################
 [line 25 Success ]
-
-
-
+

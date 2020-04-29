@@ -302,7 +302,7 @@ nodeType* binaryExpression(int operation, nodeType* ex1, nodeType* ex2)
                 nodeType *operr = opr(operation, 2, ex1, ex2);
                 nodeType* value=execute_expression(operation,ex1,ex2);
                 string index= sym->createTemp(value,type);
-                nodeType* ptr=opr(TEMP,2,id((char *)index.c_str()),operr);
+                nodeType* ptr=opr(TEMP,2,id(mystrdup((char *)index.c_str())),operr);
 
                 ptr->opr.iValue=value->opr.iValue;
                 ptr->opr.cValue=value->opr.cValue;
