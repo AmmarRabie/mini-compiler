@@ -3,7 +3,7 @@ LT  z  5  T0
 IF NOT  T0 GOTO Label3
 Label2 :
 MOV  3    y
-LT  z  2.500000  T0
+GT  z  2.500000  T0
 IF NOT  T0 GOTO Label1
 Label0 :
 MOV  100    y

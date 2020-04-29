@@ -4,5 +4,4 @@
 [line 9 Success ]
 line : 13 : syntax error, unexpected integer, expecting identifier
 [line 13 Success ]
-warping
-line : 16 : syntax error, unexpected $end, expecting ;
+line : 16 : syntax error, unexpected $end, expecting ;

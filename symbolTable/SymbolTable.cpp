@@ -48,16 +48,60 @@ void SymbolTable::printTable()
       {
        string type =get_type_name(it.second->type);
        string initialized;
-       if (it.second->value==NULL)
+       if (it.first[0]=='T') continue;
+       switch(it.second->type)
        {
-         initialized=" Not Initialized";
-       }
-       else
-       {
-         initialized=" Initialized";
-       }
-       if (it.first[0]!='T')
-      cout<< "index = "<<it.first<<" : value = "<<initialized<<" : type = "<<type<<endl;
+         case T_INT: 
+          if (it.second->value == NULL)
+          {
+              cout<< "index = "<<it.first<<" : value = "<<" Not initialized "<<" : type = "<<type<<endl;
+          }
+          else
+          {
+              cout<< "index = "<<it.first<<" : value = "<<it.second->iValue<<" : type = "<<type<<endl;
+          }        
+          break;
+         case T_FLOAT: 
+          if (it.second->value == NULL)
+          {
+              cout<< "index = "<<it.first<<" : value = "<<" Not initialized "<<" : type = "<<type<<endl;
+          }
+          else
+          {
+              cout<< "index = "<<it.first<<" : value = "<<it.second->fValue<<" : type = "<<type<<endl;
+          }        
+          break;
+         case T_BOOL: 
+          if (it.second->value == NULL)
+          {
+              cout<< "index = "<<it.first<<" : value = "<<" Not initialized "<<" : type = "<<type<<endl;
+          }
+          else
+          {
+              cout<< "index = "<<it.first<<" : value = "<<it.second->bValue<<" : type = "<<type<<endl;
+          }        
+          break;
+         case T_CHR: 
+          if (it.second->value == NULL)
+          {
+              cout<< "index = "<<it.first<<" : value = "<<" Not initialized "<<" : type = "<<type<<endl;
+          }
+          else
+          {
+              cout<< "index = "<<it.first<<" : value = "<<it.second->cValue<<" : type = "<<type<<endl;
+          }        
+          break;
+         case T_CHR*100: 
+          if (it.second->value == NULL)
+          {
+              cout<< "index = "<<it.first<<" : value = "<<" Not initialized "<<" : type = "<<type<<endl;
+          }
+          else
+          {
+              cout<< "index = "<<it.first<<" : value = "<<it.second->sValue<<" : type = "<<type<<endl;
+          }        
+          break;
+          }
   } 
 }
 

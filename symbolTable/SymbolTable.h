@@ -6,7 +6,8 @@
 
 using namespace std;
 
-
+#ifndef SYMBOL_TABLE
+#define SYMBOL_TABLE
 class SymbolTable
 {
 
@@ -21,3 +22,5 @@ class SymbolTable
     void printTable();
     ~SymbolTable();
 };
+
+#endif

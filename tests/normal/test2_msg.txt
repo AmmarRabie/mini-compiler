@@ -3,7 +3,7 @@
 current scope : Global
 children scopes  :
 Table :
-index = var2 : value =  Initialized : type = integer
+index = var2 : value = 7 : type = integer
 #####################################################
 [line 6 Success ]
 
@@ -11,8 +11,8 @@ index = var2 : value =  Initialized : type = integer
 current scope : Global
 children scopes  :
 Table :
-index = ch : value =  Initialized : type = char
-index = var2 : value =  Initialized : type = integer
+index = ch : value = 0 : type = char
+index = var2 : value = 7 : type = integer
 #####################################################
 [line 7 Success ]
 
@@ -20,9 +20,9 @@ index = var2 : value =  Initialized : type = integer
 current scope : Global
 children scopes  :
 Table :
-index = f : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = ch : value =  Initialized : type = char
+index = f : value = 3.422 : type = float
+index = var2 : value = 7 : type = integer
+index = ch : value = 0 : type = char
 #####################################################
 [line 8 Success ]
 
@@ -30,10 +30,10 @@ index = ch : value =  Initialized : type = char
 current scope : Global
 children scopes  :
 Table :
-index = b1 : value =  Initialized : type = bool
-index = f : value =  Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = ch : value =  Initialized : type = char
+index = b1 : value = 1 : type = bool
+index = f : value = 3.422 : type = float
+index = var2 : value = 7 : type = integer
+index = ch : value = 0 : type = char
 #####################################################
 [line 9 Success ]
 
@@ -41,11 +41,11 @@ index = ch : value =  Initialized : type = char
 current scope : Global
 children scopes  :
 Table :
-index = b1 : value =  Initialized : type = bool
-index = f : value =  Initialized : type = float
-index = ramy : value =  Initialized : type = char[]
-index = var2 : value =  Initialized : type = integer
-index = ch : value =  Initialized : type = char
+index = b1 : value = 1 : type = bool
+index = f : value = 3.422 : type = float
+index = ramy : value = ramy : type = char[]
+index = var2 : value = 7 : type = integer
+index = ch : value = 0 : type = char
 #####################################################
 [line 10 Success ]
 
@@ -54,12 +54,12 @@ index = ch : value =  Initialized : type = char
 current scope : Global
 children scopes  :
 Table :
-index = ch : value =  Initialized : type = char
-index = var2 : value =  Initialized : type = integer
-index = result2 : value =  Not Initialized : type = float
-index = ramy : value =  Initialized : type = char[]
-index = f : value =  Initialized : type = float
-index = b1 : value =  Initialized : type = bool
+index = ch : value = 0 : type = char
+index = var2 : value = 7 : type = integer
+index = result2 : value =  Not initialized  : type = float
+index = ramy : value = ramy : type = char[]
+index = f : value = 3.422 : type = float
+index = b1 : value = 1 : type = bool
 #####################################################
 [line 13 Success ]
 
@@ -67,96 +67,76 @@ index = b1 : value =  Initialized : type = bool
 current scope : Global
 children scopes  :
 Table :
-index = result1 : value =  Not Initialized : type = integer
-index = ch : value =  Initialized : type = char
-index = var2 : value =  Initialized : type = integer
-index = result2 : value =  Not Initialized : type = float
-index = ramy : value =  Initialized : type = char[]
-index = f : value =  Initialized : type = float
-index = b1 : value =  Initialized : type = bool
+index = result1 : value =  Not initialized  : type = integer
+index = ch : value = 0 : type = char
+index = var2 : value = 7 : type = integer
+index = result2 : value =  Not initialized  : type = float
+index = ramy : value = ramy : type = char[]
+index = f : value = 3.422 : type = float
+index = b1 : value = 1 : type = bool
 #####################################################
 [line 14 Success ]
 
-##################  Symbol Table ####################
-current scope : Global
-children scopes  :
-Table :
-index = result3 : value =  Not Initialized : type = float
-index = result1 : value =  Not Initialized : type = integer
-index = ch : value =  Initialized : type = char
-index = var2 : value =  Initialized : type = integer
-index = result2 : value =  Not Initialized : type = float
-index = ramy : value =  Initialized : type = char[]
-index = f : value =  Initialized : type = float
-index = b1 : value =  Initialized : type = bool
-#####################################################
-[line 15 Success ]
-
 
 
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = b1 : value =  Initialized : type = bool
-index = f : value =  Initialized : type = float
-index = ramy : value =  Initialized : type = char[]
-index = result2 : value =  Not Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = result3 : value =  Not Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Initialized : type = integer
+index = result1 : value = -2 : type = integer
+index = ch : value = 0 : type = char
+index = var2 : value = 7 : type = integer
+index = result2 : value =  Not initialized  : type = float
+index = ramy : value = ramy : type = char[]
+index = f : value = 3.422 : type = float
+index = b1 : value = 1 : type = bool
 #####################################################
-[line 20 Success ]
+[line 19 Success ]
 
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = b1 : value =  Initialized : type = bool
-index = f : value =  Initialized : type = float
-index = ramy : value =  Initialized : type = char[]
-index = result2 : value =  Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = result3 : value =  Not Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Initialized : type = integer
+index = b1 : value = 1 : type = bool
+index = f : value = 3.422 : type = float
+index = ramy : value = ramy : type = char[]
+index = result2 : value = 39.1246 : type = float
+index = ch : value = 0 : type = char
+index = var2 : value = 7 : type = integer
+index = result1 : value = -2 : type = integer
 #####################################################
-[line 22 Success ]
+[line 21 Success ]
 
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = b1 : value =  Initialized : type = bool
-index = f : value =  Initialized : type = float
-index = ramy : value =  Initialized : type = char[]
-index = result2 : value =  Initialized : type = float
-index = ch : value =  Initialized : type = char
-index = result4 : value =  Initialized : type = char
-index = result3 : value =  Not Initialized : type = float
-index = var2 : value =  Initialized : type = integer
-index = result1 : value =  Initialized : type = integer
+index = result4 : value = c : type = char
+index = b1 : value = 1 : type = bool
+index = f : value = 3.422 : type = float
+index = ramy : value = ramy : type = char[]
+index = result2 : value = 39.1246 : type = float
+index = ch : value = 0 : type = char
+index = var2 : value = 7 : type = integer
+index = result1 : value = -2 : type = integer
 #####################################################
-[line 24 Success ]
+[line 23 Success ]
 
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = result1 : value =  Initialized : type = integer
-index = var2 : value =  Initialized : type = integer
-index = result3 : value =  Not Initialized : type = float
-index = b2 : value =  Initialized : type = bool
-index = result4 : value =  Initialized : type = char
-index = ch : value =  Initialized : type = char
-index = ramy : value =  Initialized : type = char[]
-index = f : value =  Initialized : type = float
-index = b1 : value =  Initialized : type = bool
-index = result2 : value =  Initialized : type = float
+index = b2 : value = 1 : type = bool
+index = result4 : value = c : type = char
+index = b1 : value = 1 : type = bool
+index = f : value = 3.422 : type = float
+index = ramy : value = ramy : type = char[]
+index = result2 : value = 39.1246 : type = float
+index = ch : value = 0 : type = char
+index = var2 : value = 7 : type = integer
+index = result1 : value = -2 : type = integer
 #####################################################
-[line 26 Success ]
+[line 25 Success ]
 
 
 
-warping

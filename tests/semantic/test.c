@@ -14,8 +14,6 @@ char ramy[]="hello";
 float var;
 float result;
 
-// casting (int and float ) no error
-result=var2+f;
 // type mismatch (string with numeuc value)
 result = 5 * ramy;
 // type mismatch (char with numeric values)

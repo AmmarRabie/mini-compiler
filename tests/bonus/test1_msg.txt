@@ -2,7 +2,7 @@
 current scope : Global
 children scopes  :
 Table :
-index = z : value =  Initialized : type = integer
+index = z : value = 3 : type = integer
 #####################################################
 [line 6 Success ]
 Symbol Table created with index 'scope0'
@@ -11,7 +11,7 @@ parent scope : Global
 current scope : scope0
 children scopes  :
 Table :
-index = y : value =  Initialized : type = integer
+index = y : value = 3 : type = integer
 #####################################################
 [line 10 Success ]
 Symbol Table created with index 'scope1'
@@ -22,27 +22,26 @@ children scopes  :
 Table :
 #####################################################
 [line 13 Success ]
-Matched IF conditionll  Label1
-[line 16 Success ]
-##################  Symbol Table ####################
+Matched IF conditionll  Label1
+[line 14 Success ]
+##################  Symbol Table ####################
 parent scope : Global
 current scope : scope0
 children scopes  :
 scope1
 Table :
-index = y : value =  Initialized : type = integer
-index = endIf2 : value =  Initialized : type = bool
+index = y : value = 100 : type = integer
+index = endIf2 : value = 1 : type = bool
 #####################################################
 [line 16 Success ]
-Matched IF conditionll  Label3
-[line 18 Success ]
-##################  Symbol Table ####################
+Matched IF conditionll  Label3
+[line 17 Success ]
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 scope0
 Table :
-index = endIf1 : value =  Initialized : type = bool
-index = z : value =  Initialized : type = integer
+index = endIf1 : value = 1 : type = bool
+index = z : value = 3 : type = integer
 #####################################################
 [line 18 Success ]
-warping
