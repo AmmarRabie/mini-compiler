@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+
 using namespace std;
 
 #ifndef AST
@@ -47,6 +48,11 @@ typedef struct {
  int oper; /* operator */
  int nops; /* number of operands */
  int expression_type;
+ int iValue;
+ float fValue;
+ char cValue;
+ bool bValue;
+ char* sValue;
  struct nodeType *op[1]; /* operands, extended at runtime */
 } oprNodeType;
 

@@ -2,7 +2,7 @@
 current scope : Global
 children scopes  :
 Table :
-index = z : value =  Initialized : type = float
+index = z : value = 3 : type = float
 #####################################################
 [line 5 Success ]
 Symbol Table created with index 'scope0'
@@ -11,7 +11,7 @@ parent scope : Global
 current scope : scope0
 children scopes  :
 Table :
-index = xv : value =  Initialized : type = integer
+index = xv : value = 5 : type = integer
 #####################################################
 [line 9 Success ]
 ##################  Symbol Table ####################
@@ -19,19 +19,16 @@ parent scope : Global
 current scope : scope0
 children scopes  :
 Table :
-index = xv : value =  Initialized : type = integer
+index = xv : value = 5 : type = integer
 #####################################################
 [line 10 Success ]
-while stmt
-ll  Label1
-[line 11 Success ]
+[line 11 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 scope0
 Table :
-index = afterWhile : value =  Initialized : type = char[]
-index = z : value =  Initialized : type = float
+index = afterWhile : value = While : type = char[]
+index = z : value = 9 : type = float
 #####################################################
 [line 13 Success ]
-warping

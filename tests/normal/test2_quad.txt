@@ -1,5 +1,5 @@
 MOV  7    var2
-MOV  97    ch
+MOV  48    ch
 MOV  3.422000    f
 MOV  1    b1
 MOV  0x72616D79    ramy
@@ -13,7 +13,7 @@ ADD  5.300000  T4  T5
 DIV  7.800000  3.900000  T6
 ADD  T5  T6  T7
 MOV  T7    result2
-ADD  ch  51  T8
+ADD  51  ch  T8
 MOV  T8    result4
 MUL  4  4  T9
 MUL  5  7  T10

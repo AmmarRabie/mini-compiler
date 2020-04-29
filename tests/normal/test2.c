@@ -4,7 +4,7 @@
 
 ////////////////////// definitions 
 int var2=7;
-char ch='a';
+char ch='0';
 float f=3.422;
 bool b1=true;
 char ramy[]="ramy";
@@ -12,7 +12,6 @@ char ramy[]="ramy";
 ////////////////////// declarations
 float result2;
 int result1;
-float result3;
 
 ////////////////// complex expressions
 
@@ -21,7 +20,7 @@ result1=var2+var2-var2*7/3;
 /// expression contain only floats
 result2=(5.3+f*9.3)+7.8/3.9;
 /// expression contain only characters
-char result4=ch+'3';
+char result4='3'+ch;
 /// expression boolean
 bool b2 = ((4*4)<(5*7)) || (342<789);
 

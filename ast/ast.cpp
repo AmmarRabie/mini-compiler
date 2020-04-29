@@ -20,6 +20,7 @@ nodeType *floatt(float value) {
     /* copy information */
     p->type = typeFloat;
     p->floatt.value = value;
+    p->opr.fValue=value;
     return p;
 }
 nodeType *intt(int value) {
@@ -30,6 +31,7 @@ nodeType *intt(int value) {
     /* copy information */
     p->type = typeInt;
     p->intt.value = value;
+    p->opr.iValue=value;
     return p;
 }
 nodeType *bo(bool value) {
@@ -40,6 +42,7 @@ nodeType *bo(bool value) {
     /* copy information */
     p->type = typeBool;
     p->bo.value = value;
+    p->opr.bValue=value;
     return p;
 }
 
@@ -51,6 +54,7 @@ nodeType *charr(char value) {
     /* copy information */
     p->type = typeChar;
     p->charr.value = value;
+    p->opr.cValue=value;
     return p;
 }
 
@@ -64,6 +68,7 @@ nodeType *strr(char * value)
     /* copy information */
     p->type = typeString;
     p->str.value = value;
+    p->opr.sValue=mystrdup(value);
     return p;
 }
 
@@ -243,7 +248,16 @@ string ex(nodeType *p,char * outputFile) {
                 output<<labelFalse<<" :"<<endl;
             }
                 break;
-            
+            case DO:
+            {
+                string labelFalse=ex(p->opr.op[2],outputFile);
+                string temp=ex(p->opr.op[0],outputFile);
+                string labelTrue=ex(p->opr.op[1],outputFile);
+                temp=ex(p->opr.op[0],outputFile);
+                output << "IF  " << temp << " GOTO  "<<labelTrue<<endl;
+                output<<labelFalse<<" :"<<endl;
+            }
+                break;
             case T_CHR*100:
                 if(p->opr.nops == 2)
                 {

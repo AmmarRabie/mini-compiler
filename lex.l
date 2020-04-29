@@ -59,6 +59,7 @@ array [\[][0-9]*[\]]
 "while" { yylval.iValue =WHILE; MATCH RETURN (WHILE);}
 "for" { yylval.iValue =FOR; MATCH RETURN (FOR);}
 "break" { yylval.iValue =BREAK; MATCH RETURN (BREAK);}
+"do" {yylval.iValue =DO; MATCH RETURN (DO);}
 
 
 (function|#) {MATCH RETURN(FUNCTION); };
@@ -115,7 +116,7 @@ array [\[][0-9]*[\]]
 
 %%
 int yywrap(void) {
-    printf("warping\n");
+    //printf("warping\n");
     return 1;
 }
 

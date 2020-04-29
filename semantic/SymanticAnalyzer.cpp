@@ -32,7 +32,7 @@ nodeType * SymanticAnalyzer::varAss(char* index,nodeType* value,bool syntax_erro
     {
         if (!(value->type==typeOpr && value->opr.oper==-1 ))
         {
-            en->value=value;
+            en->setValue(value);
             sym->printTable();
             r= opr('=', 2, id(index), value); 
         }
@@ -168,10 +168,7 @@ int  SymanticAnalyzer::compareTwoTypes(int operation ,int  type1,int type2)
     {
         return T_BOOL;
     }
-    else if ((type1==T_FLOAT && type2==T_INT)||(type2==T_FLOAT && type1==T_INT))
-    {
-        return T_FLOAT;
-    }
+    
     if  (type1==type2)
     {
         return type1;

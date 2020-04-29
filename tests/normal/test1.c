@@ -1,6 +1,6 @@
 // supported data types (int ,float ,char,bool,char[])
 // in this example we can do any operation containing any of this three types (int, float) casting will happen.
-// to handle complex expression result are stored in temps numiable (T0, T1, T2 .....).
+// to handle complex expression result are stored in temps variables (T0, T1, T2 .....).
 
 ////////////////////// definitions 
 int num1=7;
@@ -13,7 +13,7 @@ float num5;
 int num6;
 float num7;
 
-//////////////////// simple assignments
+//////////////////// simple expressions
 num6=3;
 num5=9.9;
 /////
@@ -27,7 +27,7 @@ num6=7+8;
 /////
 bo4=false || true;
 bo4=bo4 && true;
-bo4= num3<num7;
+bo4= num3>num7;
 ////
 
 

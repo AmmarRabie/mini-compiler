@@ -18,5 +18,5 @@ OR  0  1  T5
 MOV  T5    bo4
 AND  bo4  1  T6
 MOV  T6    bo4
-LT  num3  num7  T7
+GT  num3  num7  T7
 MOV  T7    bo4

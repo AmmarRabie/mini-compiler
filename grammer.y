@@ -7,6 +7,8 @@
 #include <iostream>
 
 #include "ast/ast.h"
+#include "execute.h"
+
 #include "semantic/SymanticAnalyzer.h"
 using namespace std;
 
@@ -14,6 +16,8 @@ using namespace std;
 string get_string(char * s);
 nodeType* unaryExpression(int operation, nodeType* ex1);
 nodeType* binaryExpression(int operation, nodeType* ex1, nodeType* ex2);
+nodeType* execute_expression(int operation,nodeType* ex1,nodeType* ex2);
+
 string get_type_name(int type);
 int label_count=0;
 string createLabel();
@@ -65,13 +69,13 @@ string label;
 
 %token <iValue> BREAK "break"
 
-%token SEMICOLON ";" FUNCTION "function"
+%token SEMICOLON ";" FUNCTION "function" 
 %token <iValue> PRINT "print built in function" // built-in functions
 %token <iValue> IF "if statement" SWITCH "switch statement" CASE "case statement" WHILE "while statement "
 %token <iValue> FOR " for statement"  DEFAULT "defualt statement"// flow controls
 %token <iValue> CONST "const keyword" 
 %token <iValue> T_INT "integer" T_FLOAT "float"  T_CHR "char"  T_BOOL "Boolean" // types
-%token <iValue> TEMP
+%token <iValue> TEMP DO "do statement"
 
 
 %token <iValue>  INVALID "invalid token"
@@ -253,18 +257,23 @@ IF_STATEMENT:
                                                                                                         char * ss= mystrdup((char*)newLabel.c_str());
                                                                                                          $$ = opr(IF,3,$3,$5,id(ss));
                                                                                                         }
-        | IF '(' VARIABLE_EXPRESSION ')' _stmt ELSE _stmt                                                {   printf("if else stmt\n");$$ = opr(IF,3,$3,$5,$7); }
         ;
 
 
 
 WHILE_LOOP_STATEMENT:
-        WHILE '(' VARIABLE_EXPRESSION ')' _stmt                                                       {   printf("while stmt\n");
+        WHILE '(' VARIABLE_EXPRESSION ')' _stmt                                                       {   // printf("while stmt\n");
                                                                                                         string newLabel=createLabel();
-                                                                                                        cout<<"ll  " <<newLabel<<endl;
+                                                                                                        // cout<<"ll  " <<newLabel<<endl;
                                                                                                         char * ss= mystrdup((char*)newLabel.c_str());
                                                                                                          $$ = opr(WHILE,3,$3,$5,id(ss)); }
-
+        |DO _stmt  WHILE '(' VARIABLE_EXPRESSION ')' SEMICOLON                                         {   // printf("do while statement stmt\n");
+                                                                                                        string newLabel=createLabel();
+                                                                                                        // cout<<"ll  " <<newLabel<<endl;
+                                                                                                        char * ss= mystrdup((char*)newLabel.c_str());
+                                                                                                        // cout<<"here"<<endl;
+                                                                                                         $$ = opr(DO,3,$5,$2,id(ss)); }
+                                ;
 
 
 
@@ -291,8 +300,15 @@ nodeType* binaryExpression(int operation, nodeType* ex1, nodeType* ex2)
         if (type!=-1 && !(ex1->type==typeOpr && ex1->opr.oper==-1 ) && !(ex2->type==typeOpr && ex2->opr.oper==-1 ))
         {
                 nodeType *operr = opr(operation, 2, ex1, ex2);
-                string index= sym->createTemp(operr,type);
+                nodeType* value=execute_expression(operation,ex1,ex2);
+                string index= sym->createTemp(value,type);
                 nodeType* ptr=opr(TEMP,2,id((char *)index.c_str()),operr);
+
+                ptr->opr.iValue=value->opr.iValue;
+                ptr->opr.cValue=value->opr.cValue;
+                ptr->opr.fValue=value->opr.fValue;
+                ptr->opr.bValue=value->opr.bValue;
+
                 ptr->opr.expression_type=type;
                 return ptr;
         }
@@ -308,6 +324,57 @@ nodeType* binaryExpression(int operation, nodeType* ex1, nodeType* ex2)
         }
 }
 
+nodeType* execute_expression(int operation,nodeType* ex1,nodeType* ex2)
+{
+    int type1=sem.get_Type(ex1);
+    int type2=sem.get_Type(ex2);
+    
+    nodeType * p;
+    //// int expressions
+    if (type1==type2 && type1==T_INT)
+    {
+      int result=excute_int(operation,ex1,ex2,sym);
+      p = opr(-1,0);
+      p->opr.iValue=result;
+    }
+    //// int expressions
+    if (type1==type2 && type1==T_FLOAT)
+    {
+      float result=excute_float(operation,ex1,ex2,sym);
+      p = opr(-1,0);
+      p->opr.fValue=result;
+    }
+
+    //// char expressions
+    if (type1==type2 && type1==T_CHR)
+    {
+      char result=excute_char(operation,ex1,ex2,sym);
+      p = opr(-1,0);
+      p->opr.cValue=result;
+    }
+
+    //// bool expressions
+    if ((type1==type2 && type1==T_BOOL))
+    {
+      bool result=excute_bool(operation,ex1,ex2,sym);
+      p = opr(-1,0);
+      p->opr.bValue=result;
+    }
+
+    bool boolOp= (operation == '<') || (operation == '>') || (operation == LEQ) ;
+    boolOp = boolOp ||  (operation == GEQ) ||  (operation == EQQ) || (operation == NEQ);
+
+    if ((  (type1==T_INT || type1==T_FLOAT)&&(type2==T_INT || type2==T_FLOAT)  )&&(boolOp))
+    {
+      bool result=excute_comparesion(operation,ex1,ex2,sym);
+      p = opr(-1,0);
+      p->opr.bValue=result;
+   }
+    
+    return p;
+    
+  
+}
 nodeType* unaryExpression(int operation, nodeType* ex1)
 {
         int type =sem.get_Type(ex1);
