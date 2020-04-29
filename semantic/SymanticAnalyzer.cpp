@@ -32,9 +32,18 @@ nodeType * SymanticAnalyzer::varAss(char* index,nodeType* value,bool syntax_erro
     {
         if (!(value->type==typeOpr && value->opr.oper==-1 ))
         {
+            if (compareTwoTypes('=',en->type,get_Type(value))!=-1)
+            {
             en->setValue(value);
             sym->printTable();
             r= opr('=', 2, id(index), value); 
+            }
+            else
+            {
+               cout <<" line :"<< *lineNumber<<" Type mismatch "<<get_type_name(en->type);
+               cout<<" conflitcs with "<<get_type_name(get_Type(value))<<endl;
+                r=opr(-1,0);
+            }
         }
         else
         {
