@@ -26,7 +26,7 @@ extern int yylex();
 letter [a-zA-Z]
 validChar [0-9a-zA-Z_]
 number [0-9]+
-cChar  '.'
+cChar  '.?'
 strings ["]([^"])*["]
 array [\[][0-9]*[\]]
 invalidChar ['..+'|\.|\?]
@@ -83,7 +83,11 @@ invalidChar ['..+'|\.|\?]
     return (STRINGS);
 }
 {cChar} {
-     yylval.cValue =yytext[1]; 
+     yylval.cValue =yytext[1];
+     if (yylval.cValue=='\'')
+     {
+         yylval.cValue=0;
+     } 
      //cout<<endl<<yylval.cValue<<endl;
     MATCH RETURN (V_CHR);
 }
