@@ -86,7 +86,7 @@ void SymbolTableTree::printTable()
     }
     cout<<"Table :"<<endl;
     this->table.printTable();
-    cout<<"#####################################################"<<endl;
+    cout<<"-------------end symbol Table  -----"<<endl;
 }
 
 

@@ -78,7 +78,7 @@ string label;
 %token <iValue> TEMP DO "do statement"
 
 
-%token <iValue>  INVALID "invalid token"
+%token <iValue>  INVALID "invalid c words or syymbols"
 %type <nPtr>      SMALL_PROGRAM _stmt  ITERATION_STATEMENT SELECTION_STATEMENT COMPUND_STATEMNET EXPRESSION_STATEMENT ASSIGNMENT_STATEMENT DECLARATION_STATEMENT VARIABLE_EXPRESSION IF_STATEMENT type  WHILE_LOOP_STATEMENT  
 
 
@@ -157,7 +157,8 @@ EXPRESSION_STATEMENT:
                                                                                                 $$ = opr(';', 2, NULL, NULL); }
                         |ASSIGNMENT_STATEMENT
                         |DECLARATION_STATEMENT
-                        |VARIABLE_EXPRESSION                                                  {    printf("parserW2: expression stmt\n");$$ = $1; }
+                        |VARIABLE_EXPRESSION                                                  {   // printf("parserW2: expression stmt\n");
+                                                                                                $$ = $1; }
                         ;
 
 SELECTION_STATEMENT:
@@ -251,9 +252,9 @@ VARIABLE_EXPRESSION:
                         ;
 
 IF_STATEMENT:
-         IF '(' VARIABLE_EXPRESSION ')' _stmt %prec IFX                                                {   printf("Matched IF condition");
+         IF '(' VARIABLE_EXPRESSION ')' _stmt %prec IFX                                                {  // printf("Matched IF condition");
                                                                                                         string newLabel=createLabel();
-                                                                                                        cout<<"ll  " <<newLabel<<endl;
+                                                                                                        // cout<<"ll  " <<newLabel<<endl;
                                                                                                         char * ss= mystrdup((char*)newLabel.c_str());
                                                                                                          $$ = opr(IF,3,$3,$5,id(ss));
                                                                                                         }
@@ -302,7 +303,7 @@ nodeType* binaryExpression(int operation, nodeType* ex1, nodeType* ex2)
                 nodeType *operr = opr(operation, 2, ex1, ex2);
                 nodeType* value=execute_expression(operation,ex1,ex2);
                 string index= sym->createTemp(value,type);
-                nodeType* ptr=opr(TEMP,2,id(mystrdup((char *)index.c_str())),operr);
+                nodeType* ptr=opr(TEMP,2,id(  mystrdup(  (char *)index.c_str() )  ),operr);
 
                 ptr->opr.iValue=value->opr.iValue;
                 ptr->opr.cValue=value->opr.cValue;

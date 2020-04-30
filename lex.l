@@ -29,6 +29,8 @@ number [0-9]+
 cChar  '.'
 strings ["]([^"])*["]
 array [\[][0-9]*[\]]
+invalidChar ['..+'|\.|\?]
+
 
 %%
 
@@ -108,6 +110,10 @@ array [\[][0-9]*[\]]
 [;] { MATCH
     //printf("end of statement\n");
     RETURN(SEMICOLON);
+}
+
+{invalidChar} {
+    RETURN(INVALID);
 }
 
 {

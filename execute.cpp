@@ -180,6 +180,10 @@ bool excute_bool(int operation,nodeType* ex1,nodeType* ex2,SymbolTableTree * sym
         {
                 case AND : return value1 && value2;
                 case OR : return value1 || value2;
+                case EQQ : return value1 == value2;
+                case NEQ : return value1 != value2;
+
+
         }
 
         return 0;
