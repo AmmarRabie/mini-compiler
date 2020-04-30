@@ -3,14 +3,14 @@ current scope : Global
 children scopes  :
 Table :
 index = xyz : value = 3 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 4 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
 index = xyz : value = 21 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 5 Success ]
 ##################  Symbol Table ####################
 current scope : Global
@@ -18,7 +18,7 @@ children scopes  :
 Table :
 index = y : value = 2.3 : type = float
 index = xyz : value = 21 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 6 Success ]
 Symbol Table created with index 'scope0'
 ##################  Symbol Table ####################
@@ -27,10 +27,9 @@ current scope : scope0
 children scopes  :
 Table :
 index = xyz : value = 460 : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 9 Success ]
-Matched IF conditionll  Label1
-[line 10 Success ]
+[line 10 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
@@ -39,6 +38,6 @@ Table :
 index = x : value = 3 : type = integer
 index = y : value = 2.3 : type = float
 index = xyz : value = 21 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 12 Success ]
 

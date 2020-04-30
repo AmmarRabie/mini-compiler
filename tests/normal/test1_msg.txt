@@ -1,10 +1,11 @@
 
+
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
 index = num1 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 6 Success ]
 
 ##################  Symbol Table ####################
@@ -13,7 +14,7 @@ children scopes  :
 Table :
 index = char2 : value = a : type = char
 index = num1 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 7 Success ]
 
 ##################  Symbol Table ####################
@@ -23,7 +24,7 @@ Table :
 index = num3 : value = 3.422 : type = float
 index = num1 : value = 7 : type = integer
 index = char2 : value = a : type = char
-#####################################################
+-------------end symbol Table  -----
 [line 8 Success ]
 
 ##################  Symbol Table ####################
@@ -34,7 +35,7 @@ index = bo4 : value = 1 : type = bool
 index = num3 : value = 3.422 : type = float
 index = num1 : value = 7 : type = integer
 index = char2 : value = a : type = char
-#####################################################
+-------------end symbol Table  -----
 [line 9 Success ]
 
 
@@ -47,7 +48,7 @@ index = bo4 : value = 1 : type = bool
 index = num3 : value = 3.422 : type = float
 index = num1 : value = 7 : type = integer
 index = char2 : value = a : type = char
-#####################################################
+-------------end symbol Table  -----
 [line 12 Success ]
 
 ##################  Symbol Table ####################
@@ -60,7 +61,7 @@ index = num1 : value = 7 : type = integer
 index = num3 : value = 3.422 : type = float
 index = bo4 : value = 1 : type = bool
 index = num5 : value =  Not initialized  : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 13 Success ]
 
 ##################  Symbol Table ####################
@@ -74,7 +75,7 @@ index = num1 : value = 7 : type = integer
 index = num3 : value = 3.422 : type = float
 index = bo4 : value = 1 : type = bool
 index = num5 : value =  Not initialized  : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 14 Success ]
 
 
@@ -89,7 +90,7 @@ index = num1 : value = 7 : type = integer
 index = num3 : value = 3.422 : type = float
 index = bo4 : value = 1 : type = bool
 index = num5 : value =  Not initialized  : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 17 Success ]
 
 ##################  Symbol Table ####################
@@ -103,7 +104,7 @@ index = num1 : value = 7 : type = integer
 index = num3 : value = 3.422 : type = float
 index = bo4 : value = 1 : type = bool
 index = num5 : value = 9.9 : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 18 Success ]
 
 ##################  Symbol Table ####################
@@ -117,7 +118,7 @@ index = num1 : value = 7 : type = integer
 index = num3 : value = 3.422 : type = float
 index = bo4 : value = 1 : type = bool
 index = num5 : value = 9.9 : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 20 Success ]
 
 ##################  Symbol Table ####################
@@ -131,7 +132,7 @@ index = num1 : value = 7 : type = integer
 index = num3 : value = 3.422 : type = float
 index = bo4 : value = 1 : type = bool
 index = num5 : value = 9.9 : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 21 Success ]
 
 ##################  Symbol Table ####################
@@ -145,21 +146,21 @@ index = num1 : value = 7 : type = integer
 index = num3 : value = 3.422 : type = float
 index = bo4 : value = 1 : type = bool
 index = num5 : value = 9.9 : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 23 Success ]
 
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
-index = num7 : value = 16.2 : type = float
-index = num6 : value = 10 : type = integer
-index = char2 : value = a : type = char
-index = num1 : value = 7 : type = integer
-index = num3 : value = 3.422 : type = float
-index = bo4 : value = 1 : type = bool
 index = num5 : value = 9.9 : type = float
-#####################################################
+index = bo4 : value = 1 : type = bool
+index = char2 : value = a : type = char
+index = num6 : value = 10 : type = integer
+index = num3 : value = 3.422 : type = float
+index = num7 : value = 18.5 : type = float
+index = num1 : value = 7 : type = integer
+-------------end symbol Table  -----
 [line 24 Success ]
 
 ##################  Symbol Table ####################
@@ -171,9 +172,9 @@ index = bo4 : value = 1 : type = bool
 index = char2 : value = a : type = char
 index = num6 : value = 15 : type = integer
 index = num3 : value = 3.422 : type = float
-index = num7 : value = 16.2 : type = float
+index = num7 : value = 18.5 : type = float
 index = num1 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 26 Success ]
 
 ##################  Symbol Table ####################
@@ -185,9 +186,9 @@ index = bo4 : value = 1 : type = bool
 index = char2 : value = a : type = char
 index = num6 : value = 15 : type = integer
 index = num3 : value = 3.422 : type = float
-index = num7 : value = 16.2 : type = float
+index = num7 : value = 18.5 : type = float
 index = num1 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 28 Success ]
 
 ##################  Symbol Table ####################
@@ -199,9 +200,9 @@ index = bo4 : value = 1 : type = bool
 index = char2 : value = a : type = char
 index = num6 : value = 15 : type = integer
 index = num3 : value = 3.422 : type = float
-index = num7 : value = 16.2 : type = float
+index = num7 : value = 18.5 : type = float
 index = num1 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 29 Success ]
 
 ##################  Symbol Table ####################
@@ -213,9 +214,9 @@ index = bo4 : value = 0 : type = bool
 index = char2 : value = a : type = char
 index = num6 : value = 15 : type = integer
 index = num3 : value = 3.422 : type = float
-index = num7 : value = 16.2 : type = float
+index = num7 : value = 18.5 : type = float
 index = num1 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 30 Success ]
 
 

@@ -3,7 +3,7 @@ current scope : Global
 children scopes  :
 Table :
 index = z : value = 3 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 6 Success ]
 Symbol Table created with index 'scope0'
 ##################  Symbol Table ####################
@@ -12,7 +12,7 @@ current scope : scope0
 children scopes  :
 Table :
 index = y : value = 3 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 10 Success ]
 Symbol Table created with index 'scope1'
 ##################  Symbol Table ####################
@@ -20,10 +20,9 @@ parent scope : scope0
 current scope : scope1
 children scopes  :
 Table :
-#####################################################
+-------------end symbol Table  -----
 [line 13 Success ]
-Matched IF conditionll  Label1
-[line 14 Success ]
+[line 14 Success ]
 ##################  Symbol Table ####################
 parent scope : Global
 current scope : scope0
@@ -32,10 +31,9 @@ scope1
 Table :
 index = y : value = 100 : type = integer
 index = endIf2 : value = 1 : type = bool
-#####################################################
+-------------end symbol Table  -----
 [line 16 Success ]
-Matched IF conditionll  Label3
-[line 17 Success ]
+[line 17 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
@@ -43,5 +41,5 @@ scope0
 Table :
 index = endIf1 : value = 1 : type = bool
 index = z : value = 3 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 18 Success ]

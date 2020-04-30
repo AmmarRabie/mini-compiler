@@ -3,7 +3,7 @@ current scope : Global
 children scopes  :
 Table :
 index = z : value = 3 : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 5 Success ]
 Symbol Table created with index 'scope0'
 ##################  Symbol Table ####################
@@ -12,7 +12,7 @@ current scope : scope0
 children scopes  :
 Table :
 index = xv : value = 5 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 9 Success ]
 ##################  Symbol Table ####################
 parent scope : Global
@@ -20,7 +20,7 @@ current scope : scope0
 children scopes  :
 Table :
 index = xv : value = 5 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 10 Success ]
 [line 11 Success ]
 ##################  Symbol Table ####################
@@ -30,5 +30,5 @@ scope0
 Table :
 index = afterWhile : value = While : type = char[]
 index = z : value = 9 : type = float
-#####################################################
+-------------end symbol Table  -----
 [line 13 Success ]

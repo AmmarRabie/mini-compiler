@@ -17,7 +17,7 @@ ADD  51  ch  T8
 MOV  T8    result4
 MUL  4  4  T9
 MUL  5  7  T10
-LT  T9  T10  T11
-LT  342  789  T12
+GT  T9  T10  T11
+GT  342  789  T12
 OR  T11  T12  T13
 MOV  T13    b2

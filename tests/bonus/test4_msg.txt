@@ -1,34 +1,42 @@
-##################  Symbol Table ####################
+
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
 index = z : value = 3 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 5 Success ]
-Symbol Table created with index 'scope0'
-##################  Symbol Table ####################
+
+
+Symbol Table created with index 'scope0'
+
+##################  Symbol Table ####################
 parent scope : Global
 current scope : scope0
 children scopes  :
 Table :
 index = xv : value = 5 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 8 Success ]
-##################  Symbol Table ####################
+
+##################  Symbol Table ####################
 parent scope : Global
 current scope : scope0
 children scopes  :
 Table :
 index = xv : value = 5 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 9 Success ]
-[line 10 Success ]
-##################  Symbol Table ####################
+
+[line 10 Success ]
+
+
+##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 scope0
 Table :
 index = afterWhile : value = While : type = char[]
 index = z : value = 8 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 12 Success ]

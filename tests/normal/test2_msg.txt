@@ -112,7 +112,7 @@ index = result1 : value = -2 : type = integer
 current scope : Global
 children scopes  :
 Table :
-index = b2 : value = 1 : type = bool
+index = b2 : value = 0 : type = bool
 index = result4 : value = c : type = char
 index = b1 : value = 1 : type = bool
 index = f : value = 3.422 : type = float

@@ -1,5 +1,5 @@
+// Test case 2 : complex expression on the data types
 // supported data types (int ,float ,char,bool,char[])
-// in this example we can do any operation containing any of this three types (int, float) casting will happen.
 // to handle complex expression result are stored in temps variable (T0, T1, T2 .....).
 
 ////////////////////// definitions 
@@ -19,9 +19,9 @@ int result1;
 result1=var2+var2-var2*7/3;
 /// expression contain only floats
 result2=(5.3+f*9.3)+7.8/3.9;
-/// expression contain only characters
+/// expression contain only characters (result is 'c' character)
 char result4='3'+ch;
 /// expression boolean
-bool b2 = ((4*4)<(5*7)) || (342<789);
+bool b2 = ((4*4)>(5*7)) || (342>789);
 
 

@@ -3,7 +3,7 @@ current scope : Global
 children scopes  :
 Table :
 index = var2 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 8 Success ]
 ##################  Symbol Table ####################
 current scope : Global
@@ -11,7 +11,7 @@ children scopes  :
 Table :
 index = ch : value = a : type = char
 index = var2 : value = 7 : type = integer
-#####################################################
+-------------end symbol Table  -----
 [line 9 Success ]
 ##################  Symbol Table ####################
 current scope : Global
@@ -20,7 +20,7 @@ Table :
 index = f : value = 3.422 : type = float
 index = var2 : value = 7 : type = integer
 index = ch : value = a : type = char
-#####################################################
+-------------end symbol Table  -----
 [line 10 Success ]
 ##################  Symbol Table ####################
 current scope : Global
@@ -30,7 +30,7 @@ index = f : value = 3.422 : type = float
 index = ramy : value = hello : type = char[]
 index = var2 : value = 7 : type = integer
 index = ch : value = a : type = char
-#####################################################
+-------------end symbol Table  -----
 [line 11 Success ]
 ##################  Symbol Table ####################
 current scope : Global
@@ -41,32 +41,47 @@ index = ramy : value = hello : type = char[]
 index = var2 : value = 7 : type = integer
 index = var : value =  Not initialized  : type = float
 index = ch : value = a : type = char
-#####################################################
+-------------end symbol Table  -----
 [line 14 Success ]
 ##################  Symbol Table ####################
 current scope : Global
 children scopes  :
 Table :
+index = var3 : value =  Not initialized  : type = char
+index = ch : value = a : type = char
+index = var : value =  Not initialized  : type = float
+index = var2 : value = 7 : type = integer
+index = ramy : value = hello : type = char[]
+index = f : value = 3.422 : type = float
+-------------end symbol Table  -----
+[line 15 Success ]
+##################  Symbol Table ####################
+current scope : Global
+children scopes  :
+Table :
+index = var3 : value =  Not initialized  : type = char
 index = result : value =  Not initialized  : type = float
 index = ch : value = a : type = char
 index = var : value =  Not initialized  : type = float
 index = var2 : value = 7 : type = integer
 index = ramy : value = hello : type = char[]
 index = f : value = 3.422 : type = float
-#####################################################
-[line 15 Success ]
- line : 18 : type mismatch integer conflicts with char[]
-[line 18 Success ]
- line : 20 : type mismatch integer conflicts with char
-[line 20 Success ]
- line : 22 : type mismatch integer conflicts with bool
-[line 22 Success ]
- line :24 Type mismatch float conflitcs with bool
-[line 24 Success ]
- line :28 : semntic error, variable var not initilized 
-[line 28 Success ]
- line :31 : semntic error, variable notDefined not defined
+-------------end symbol Table  -----
+[line 16 Success ]
+ line : 19 : type mismatch integer conflicts with char[]
+[line 19 Success ]
+ line : 21 : type mismatch integer conflicts with char
+[line 21 Success ]
+ line : 23 : type mismatch integer conflicts with bool
+[line 23 Success ]
+ line :25 Type mismatch float conflitcs with bool
+[line 25 Success ]
+ line :29 : semntic error, variable var not initilized 
+[line 29 Success ]
+ line :31 : semntic error, variable var3 not initilized 
 [line 31 Success ]
- line :34 : semntic error, variable result Redeclared
+ line :34 : semntic error, variable notDefined not defined
 [line 34 Success ]
+ line :37 : semntic error, variable result Redeclared
+[line 37 Success ]
 

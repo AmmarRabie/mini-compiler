@@ -11,12 +11,13 @@ MOV  T1    num7
 ADD  3  num1  T2
 MOV  T2    num6
 ADD  num5  6.300000  T3
-MOV  T3    num7
-ADD  7  8  T4
-MOV  T4    num6
-OR  0  1  T5
-MOV  T5    bo4
-AND  bo4  1  T6
+ADD  T3  2.300000  T4
+MOV  T4    num7
+ADD  7  8  T5
+MOV  T5    num6
+OR  0  1  T6
 MOV  T6    bo4
-GT  num3  num7  T7
+AND  bo4  1  T7
 MOV  T7    bo4
+GT  num3  num7  T8
+MOV  T8    bo4

@@ -3,7 +3,7 @@
 // 1- using of variable not defined 
 // 2- redecleration of variables
 // 3- variable used without not initialized
-// 4- type checking (assign numeric value to string variable or expression contain string variable with numeric variables )
+// 4- type checking 
 
 int var2=7;
 char ch='a';
@@ -12,6 +12,7 @@ char ramy[]="hello";
 
 
 float var;
+char var3;
 float result;
 
 // type mismatch (string with numeuc value)
@@ -26,6 +27,8 @@ float mis = false;
 
 // using of var not initialized
 result = var*3;
+
+ch=var3+'0';
 
 // using of var not defined
 result = notDefined *9;
