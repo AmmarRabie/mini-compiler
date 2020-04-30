@@ -82,11 +82,12 @@ string label;
 %type <nPtr>      SMALL_PROGRAM _stmt  ITERATION_STATEMENT SELECTION_STATEMENT COMPUND_STATEMNET EXPRESSION_STATEMENT ASSIGNMENT_STATEMENT DECLARATION_STATEMENT VARIABLE_EXPRESSION IF_STATEMENT type  WHILE_LOOP_STATEMENT  
 
 
+%left <iValue> AND OR 
 %left <iValue> EQQ NEQ 
 %left <iValue> '>' '<'
 %left <iValue> LEQ  GEQ 
 %right <iValue> '='
-%left <iValue> '+' '-' AND OR 
+%left <iValue> '+' '-' 
 %left <iValue> '*' '/'
 %nonassoc <iValue> UMINUS
 %nonassoc IFX
